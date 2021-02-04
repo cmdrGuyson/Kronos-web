@@ -32,10 +32,10 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         return new org.springframework.security.core.userdetails
                 .User(user.getUsername(), user.getPassword(),
                 true, true, true, true,
-                getAuthorities(user.getRole()));
+                getAuthorities(user.getRole().toUpperCase()));
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role) {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+role));
     }
 }

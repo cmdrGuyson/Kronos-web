@@ -34,7 +34,6 @@ public class User {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "_class", referencedColumnName = "classID")
-    @NotNull(message = "Class is required")
     private Class _class;
 
     private Instant createdAt;
