@@ -1,15 +1,15 @@
 package com.guyson.kronos.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 import java.util.Set;
 
+@EqualsAndHashCode(exclude="modules")
+@ToString(exclude = "modules")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,7 +36,8 @@ public class User {
     @JoinColumn(name = "_class", referencedColumnName = "classID")
     private Class _class;
 
-    @ManyToMany
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_module",
             joinColumns = @JoinColumn(name = "username"),
@@ -46,7 +47,15 @@ public class User {
     private Instant createdAt;
 
     public void addModule(Module module) {
-        modules.add(module);
+        if(!modules.contains(module)) {
+            modules.add(module);
+        }
+    }
+
+    public void removeModule(Module module) {
+        if(modules.contains(module)) {
+            modules.remove(module);
+        }
     }
 
 }

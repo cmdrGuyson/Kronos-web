@@ -55,4 +55,18 @@ public class ModuleController {
         }
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/unroll/{moduleID}")
+    public ResponseEntity<Object> unroll(@PathVariable int moduleID) {
+        try {
+
+            moduleService.unroll(moduleID);
+
+            return new ResponseEntity<>(new SimpleMessageDto("Unrolled successfully", HttpStatus.OK), HttpStatus.CREATED);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

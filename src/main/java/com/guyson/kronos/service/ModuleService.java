@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,6 +70,24 @@ public class ModuleService {
         com.guyson.kronos.domain.User student = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("Student not found"));
 
         student.addModule(module);
+
+        //Update in database
+        userRepository.save(student);
+
+    }
+
+    @Transactional
+    public void unroll(int moduleID) throws KronosException {
+
+        Module module = moduleRepository.findById(moduleID).orElseThrow(() -> new KronosException("Module not found"));
+
+        //User object from security context holder to obtain current user
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //If student is not found
+        com.guyson.kronos.domain.User student = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("Student not found"));
+
+        student.removeModule(module);
 
         //Update in database
         userRepository.save(student);

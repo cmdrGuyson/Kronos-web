@@ -1,9 +1,7 @@
 package com.guyson.kronos.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Set;
 
+@EqualsAndHashCode(exclude="students")
+@ToString(exclude = "students")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,7 +36,8 @@ public class Module {
     @JoinColumn(name = "lecturer", referencedColumnName = "lecturerID")
     private Lecturer lecturer;
 
-    @ManyToMany(mappedBy = "modules")
+    @JsonBackReference
+    @ManyToMany(mappedBy = "modules", fetch = FetchType.LAZY)
     private Set<User> students;
 
     private Instant createdAt;
