@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -35,6 +36,10 @@ public class Module {
     @JoinColumn(name = "lecturer", referencedColumnName = "lecturerID")
     private Lecturer lecturer;
 
+    @ManyToMany(mappedBy = "modules")
+    private Set<User> students;
+
     private Instant createdAt;
+
 
 }

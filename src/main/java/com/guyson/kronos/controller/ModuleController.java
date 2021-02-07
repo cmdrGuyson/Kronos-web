@@ -41,4 +41,18 @@ public class ModuleController {
         return new ResponseEntity<>(moduleService.getAllModules(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/enroll/{moduleID}")
+    public ResponseEntity<Object> enroll(@PathVariable int moduleID) {
+        try {
+
+            moduleService.enroll(moduleID);
+
+            return new ResponseEntity<>(new SimpleMessageDto("Enrolled successfully", HttpStatus.OK), HttpStatus.CREATED);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

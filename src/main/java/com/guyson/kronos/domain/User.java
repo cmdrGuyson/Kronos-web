@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.Instant;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +36,17 @@ public class User {
     @JoinColumn(name = "_class", referencedColumnName = "classID")
     private Class _class;
 
+    @ManyToMany
+    @JoinTable(
+            name = "student_module",
+            joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "moduleID"))
+    private Set<Module> modules;
+
     private Instant createdAt;
+
+    public void addModule(Module module) {
+        modules.add(module);
+    }
 
 }
