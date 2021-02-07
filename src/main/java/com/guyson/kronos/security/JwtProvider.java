@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.time.Instant;
+import java.util.Date;
 
 @Service
 public class JwtProvider {
@@ -34,7 +36,11 @@ public class JwtProvider {
     //Sign token with private key
     public String generateToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
-        return Jwts.builder().setSubject(principal.getUsername()).signWith(getPrivateKey()).compact();
+        return Jwts.builder()
+                .setSubject(principal.getUsername())
+                .signWith(getPrivateKey())
+                .setExpiration(Date.from(Instant.now().plusSeconds(3600)))
+                .compact();
     }
 
     private PrivateKey getPrivateKey() {

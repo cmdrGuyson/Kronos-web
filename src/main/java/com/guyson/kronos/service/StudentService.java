@@ -49,7 +49,7 @@ public class StudentService {
 
     @Transactional
     public List<StudentDto> getAllStudents() {
-        return userRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
+        return userRepository.findByRoleEquals("student").stream().map(this::mapDto).collect(Collectors.toList());
     }
 
     //Method to map data transfer object to domain class
