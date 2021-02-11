@@ -1,6 +1,7 @@
 package com.guyson.kronos.controller;
 
 import com.guyson.kronos.dto.ModuleDto;
+import com.guyson.kronos.dto.StudentModuleDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.ModuleService;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -48,7 +50,7 @@ public class ModuleController {
 
             moduleService.enroll(moduleID);
 
-            return new ResponseEntity<>(new SimpleMessageDto("Enrolled successfully", HttpStatus.OK), HttpStatus.CREATED);
+            return new ResponseEntity<>(new SimpleMessageDto("Enrolled successfully", HttpStatus.OK), HttpStatus.OK);
 
         }catch(KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
@@ -62,7 +64,35 @@ public class ModuleController {
 
             moduleService.unroll(moduleID);
 
-            return new ResponseEntity<>(new SimpleMessageDto("Unrolled successfully", HttpStatus.OK), HttpStatus.CREATED);
+            return new ResponseEntity<>(new SimpleMessageDto("Unrolled successfully", HttpStatus.OK), HttpStatus.OK);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/my-modules")
+    public ResponseEntity<Object> getMyModules() {
+        try {
+
+            Set<StudentModuleDto> modules = moduleService.getMyModules();
+
+            return new ResponseEntity<>(modules, HttpStatus.OK);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/student-modules")
+    public ResponseEntity<Object> getAllStudentModules() {
+        try {
+
+            Set<StudentModuleDto> modules = moduleService.getAllStudentModules();
+
+            return new ResponseEntity<>(modules, HttpStatus.OK);
 
         }catch(KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);

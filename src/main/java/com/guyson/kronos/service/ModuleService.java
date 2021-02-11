@@ -1,9 +1,9 @@
 package com.guyson.kronos.service;
 
-import com.guyson.kronos.controller.SimpleMessageDto;
 import com.guyson.kronos.domain.Lecturer;
 import com.guyson.kronos.domain.Module;
 import com.guyson.kronos.dto.ModuleDto;
+import com.guyson.kronos.dto.StudentModuleDto;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.repository.LecturerRepository;
 import com.guyson.kronos.repository.ModuleRepository;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -94,6 +95,55 @@ public class ModuleService {
 
     }
 
+    @Transactional
+    public Set<StudentModuleDto> getMyModules() throws KronosException {
+
+        //User object from security context holder to obtain current user
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //If student is not found
+        com.guyson.kronos.domain.User student = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("Student not found"));
+
+        //Get all modules of student
+        Set<Module> _modules = student.getModules();
+
+        Set<StudentModuleDto> modules = new HashSet<>();
+
+        for(Module module : _modules) {
+            modules.add(mapDto(module, true));
+        }
+
+        return modules;
+
+    }
+
+    @Transactional
+    public Set<StudentModuleDto> getAllStudentModules() throws KronosException {
+
+        //User object from security context holder to obtain current user
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //If student is not found
+        com.guyson.kronos.domain.User student = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("Student not found"));
+
+        //Get all modules of student
+        Set<Module> _modules = student.getModules();
+
+        List<Module> allModules = moduleRepository.findAll();
+
+        Set<StudentModuleDto> modules = new HashSet<>();
+
+        for(Module module : allModules) {
+            if(_modules.contains(module)){
+                modules.add(mapDto(module, true));
+            }else{
+                modules.add(mapDto(module, false));
+            }
+        }
+
+        return modules;
+    }
+
 
     private Module map(ModuleDto dto, Lecturer lecturer) {
         return Module.builder().createdAt(Instant.now())
@@ -103,6 +153,10 @@ public class ModuleService {
 
     private ModuleDto mapDto(Module module) {
         return new ModuleDto(module.getModuleID(), module.getLecturer().getLecturerID(), module.getCredits(), module.getDescription(), module.getName(), module.getLecturer());
+    }
+
+    private StudentModuleDto mapDto(Module module, boolean isEnrolled) {
+        return new StudentModuleDto(module.getModuleID(), module.getLecturer().getLecturerID(), module.getCredits(), module.getDescription(), module.getName(), module.getLecturer(), isEnrolled);
     }
 
 }
