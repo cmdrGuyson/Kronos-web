@@ -33,7 +33,7 @@ public class LectureService {
     private final UserRepository userRepository;
 
     @Transactional
-    public LectureDto addLecture(LectureDto dto) throws KronosException {
+    public LectureDto addLecture(LectureDto dto, boolean updateFlag) throws KronosException {
 
         Room room = roomRepository.findById(dto.getRoomID()).orElseThrow(() -> new KronosException("Room not found"));
         Module module = moduleRepository.findById(dto.getModuleID()).orElseThrow(() -> new KronosException("Module not found"));
@@ -54,6 +54,11 @@ public class LectureService {
         //Find any overlaps with other lectures in the same room
         findOverlaps(list_byRoom, lecture_start, lecture_end, true);
 
+        //If used to update a lecture
+        if (updateFlag) {
+            lectureRepository.findById(dto.getLectureID()).orElseThrow(() -> new KronosException("Lecture not found"));
+            lecture.setLectureID(dto.getLectureID());
+        }
 
         Lecture result = lectureRepository.save(lecture);
 
@@ -62,7 +67,6 @@ public class LectureService {
         dto.setRoom(room);
 
         return dto;
-
     }
 
     @Transactional

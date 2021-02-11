@@ -26,7 +26,7 @@ public class LectureController {
     @PostMapping("/lecture")
     public ResponseEntity<Object> addLecture(@RequestBody LectureDto dto) {
         try {
-            LectureDto result = lectureService.addLecture(dto);
+            LectureDto result = lectureService.addLecture(dto, false);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
@@ -48,6 +48,18 @@ public class LectureController {
     public ResponseEntity<Object> getAllLecturesByDay(@PathVariable String date) {
         try {
             return new ResponseEntity<>(lectureService.getAllLecturesByDay(date), HttpStatus.OK);
+        } catch (KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/lecture/{lectureID}")
+    public ResponseEntity<Object> updateLecture(@RequestBody LectureDto dto, @PathVariable int lectureID) {
+        try {
+            dto.setLectureID(lectureID);
+            LectureDto result = lectureService.addLecture(dto, true);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
