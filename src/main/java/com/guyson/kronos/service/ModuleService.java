@@ -5,6 +5,7 @@ import com.guyson.kronos.domain.Module;
 import com.guyson.kronos.dto.ModuleDto;
 import com.guyson.kronos.dto.StudentModuleDto;
 import com.guyson.kronos.exception.KronosException;
+import com.guyson.kronos.repository.LectureRepository;
 import com.guyson.kronos.repository.LecturerRepository;
 import com.guyson.kronos.repository.ModuleRepository;
 import com.guyson.kronos.repository.UserRepository;
@@ -25,9 +26,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ModuleService {
 
-    private ModuleRepository moduleRepository;
-    private LecturerRepository lecturerRepository;
-    private UserRepository userRepository;
+    private final ModuleRepository moduleRepository;
+    private final LecturerRepository lecturerRepository;
+    private final UserRepository userRepository;
+    private final LectureRepository lectureRepository;
 
     @Transactional
     public ModuleDto addModule(ModuleDto dto) throws KronosException {
@@ -142,6 +144,22 @@ public class ModuleService {
         }
 
         return modules;
+    }
+
+    @Transactional
+    public void deleteModule(int moduleID) throws KronosException {
+
+        //Check if module exists
+        Module module = moduleRepository.findById(moduleID).orElseThrow(() -> new KronosException("Module not found"));
+
+        //If module has any students enrolled
+        if(module.getStudents().size()>0) throw new KronosException("Module has students enrolled");
+
+        //If module has any lectures
+        if(lectureRepository.findByModule_ModuleID(moduleID).isPresent()) throw new KronosException("Module has lectures");
+
+        moduleRepository.deleteById(moduleID);
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.guyson.kronos.controller;
 
 import com.guyson.kronos.domain.User;
+import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.dto.StudentDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
@@ -38,6 +39,19 @@ public class StudentController {
     @GetMapping("/students")
     public ResponseEntity<List<StudentDto>> getAllStudents() {
         return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/student/{username}")
+    public ResponseEntity<Object> deleteStudent(@PathVariable String username) {
+        try{
+
+            studentService.deleteStudent(username);
+            return new ResponseEntity<>(new SimpleMessageDto("Deleted successfully", HttpStatus.OK), HttpStatus.OK);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

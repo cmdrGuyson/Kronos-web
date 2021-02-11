@@ -1,4 +1,4 @@
-package com.guyson.kronos.controller;
+package com.guyson.kronos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

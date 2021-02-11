@@ -52,6 +52,21 @@ public class StudentService {
         return userRepository.findByRoleEquals("student").stream().map(this::mapDto).collect(Collectors.toList());
     }
 
+    @Transactional
+    public void deleteStudent(String username) throws KronosException {
+
+        User student = userRepository.findById(username).orElseThrow(() -> new KronosException("Student not found"));
+
+        //If attempted to delete an administrator
+        if (student.getRole().equals("admin")) throw new KronosException("You cannot delete an administrator");
+
+        //If attempted to delete a student already enrolled in modules
+        if(student.getModules().size()>0) throw new KronosException("This student is already enrolled in modules");
+
+        userRepository.deleteById(username);
+
+    }
+
     //Method to map data transfer object to domain class
     private User map(StudentDto dto, Class _class) {
         return User.builder().firstName(dto.getFirstName())
