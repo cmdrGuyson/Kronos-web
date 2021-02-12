@@ -2,6 +2,8 @@ package com.guyson.kronos.service;
 
 import com.guyson.kronos.domain.Room;
 import com.guyson.kronos.dto.RoomDto;
+import com.guyson.kronos.exception.KronosException;
+import com.guyson.kronos.repository.LectureRepository;
 import com.guyson.kronos.repository.RoomRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoomService {
 
-    public final RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
+    private final LectureRepository lectureRepository;
 
     @Transactional
     public RoomDto addRoom(RoomDto dto) {
@@ -23,6 +26,19 @@ public class RoomService {
         Room room = roomRepository.save(map(dto));
         dto.setRoomID(room.getRoomID());
         return dto;
+    }
+
+    @Transactional
+    public void deleteRoom(int roomID) throws KronosException {
+
+        //Check if room exists
+        roomRepository.findById(roomID).orElseThrow(() -> new KronosException("Room not found"));
+
+        //Check if room has any lectures
+        if (lectureRepository.findFirstByRoom_RoomID(roomID).isPresent()) throw new KronosException("Room has lectures");
+
+        roomRepository.deleteById(roomID);
+
     }
 
     @Transactional

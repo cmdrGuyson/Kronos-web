@@ -46,7 +46,7 @@ public class ClassService {
         classRepository.findById(classID).orElseThrow(() -> new KronosException("Class not found"));
 
         //If class has any students
-        if (userRepository.findBy_class_ClassID(classID).isPresent()) throw new KronosException("Class cannot be deleted as it has students");
+        if (userRepository.findFirstBy_class_ClassID(classID).isPresent()) throw new KronosException("Class cannot be deleted as it has students");
 
         classRepository.deleteById(classID);
 

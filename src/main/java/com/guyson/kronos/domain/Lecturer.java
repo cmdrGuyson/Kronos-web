@@ -26,10 +26,10 @@ public class Lecturer {
     @NotEmpty(message = "Last name is required")
     private String lastName;
 
+    @Column(unique = true)
     @NotEmpty(message = "Email is required")
     private String email;
 
-    @Column(unique = true)
     @NotEmpty(message = "Type is required")
     private String type;
 

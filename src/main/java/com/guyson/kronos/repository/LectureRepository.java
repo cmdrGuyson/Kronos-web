@@ -22,6 +22,8 @@ public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
     List<Lecture> findAllByDateAndModuleIn(LocalDate date, Set<Module> modules);
 
-    Optional<Lecture> findByModule_ModuleID(int moduleID);
+    Optional<Lecture> findFirstByModule_ModuleID(int moduleID);
+
+    Optional<Lecture> findFirstByRoom_RoomID(int roomID);
 
 }

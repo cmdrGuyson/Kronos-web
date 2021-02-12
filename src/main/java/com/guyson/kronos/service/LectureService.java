@@ -87,8 +87,6 @@ public class LectureService {
             Set<Module> modules = _user.getModules();
             return lectureRepository.findAllByModuleIn(modules).stream().map(this::mapDto).collect(Collectors.toList());
         }
-
-
     }
 
     @Transactional
@@ -121,6 +119,15 @@ public class LectureService {
 
             return lectureRepository.findAllByDateAndModuleIn(date, modules).stream().map(this::mapDto).collect(Collectors.toList());
         }
+
+    }
+
+    @Transactional
+    public void deleteLecture(int lectureID) throws KronosException {
+
+        lectureRepository.findById(lectureID).orElseThrow(() -> new KronosException("Lecture not found"));
+
+        lectureRepository.deleteById(lectureID);
 
     }
 

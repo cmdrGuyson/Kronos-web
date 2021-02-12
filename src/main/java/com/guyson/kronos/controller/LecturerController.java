@@ -1,6 +1,7 @@
 package com.guyson.kronos.controller;
 
 import com.guyson.kronos.dto.LecturerDto;
+import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.LecturerService;
@@ -38,6 +39,19 @@ public class LecturerController {
     @GetMapping("/lecturers")
     public ResponseEntity<List<LecturerDto>> getAllLecturers() {
         return new ResponseEntity<>(lecturerService.getAllLecturers(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/lecturer/{lecturerID}")
+    public ResponseEntity<Object> deleteLecturer(@PathVariable int lecturerID) {
+        try{
+
+            lecturerService.deleteLecturer(lecturerID);
+            return new ResponseEntity<>(new SimpleMessageDto("Deleted successfully", HttpStatus.OK), HttpStatus.OK);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

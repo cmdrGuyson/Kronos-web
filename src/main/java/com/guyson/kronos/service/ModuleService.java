@@ -156,7 +156,7 @@ public class ModuleService {
         if(module.getStudents().size()>0) throw new KronosException("Module has students enrolled");
 
         //If module has any lectures
-        if(lectureRepository.findByModule_ModuleID(moduleID).isPresent()) throw new KronosException("Module has lectures");
+        if(lectureRepository.findFirstByModule_ModuleID(moduleID).isPresent()) throw new KronosException("Module has lectures");
 
         moduleRepository.deleteById(moduleID);
 

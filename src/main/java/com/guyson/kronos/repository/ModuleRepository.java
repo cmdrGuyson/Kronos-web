@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ModuleRepository extends JpaRepository<Module, Integer> {
 
     Optional<Module> findByName(String name);
+
+    Optional<Module> findFirstByLecturer_LecturerID(int lecturerID);
 }

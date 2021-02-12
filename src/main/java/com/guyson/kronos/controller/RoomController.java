@@ -1,6 +1,9 @@
 package com.guyson.kronos.controller;
 
 import com.guyson.kronos.dto.RoomDto;
+import com.guyson.kronos.dto.SimpleMessageDto;
+import com.guyson.kronos.exception.APIException;
+import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.RoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,19 @@ public class RoomController {
     @GetMapping("/rooms")
     public ResponseEntity<List<RoomDto>> getAllClasses() {
         return new ResponseEntity<>(roomService.getAllRooms(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/room/{roomID}")
+    public ResponseEntity<Object> deleteRoom(@PathVariable int roomID) {
+        try{
+
+            roomService.deleteRoom(roomID);
+            return new ResponseEntity<>(new SimpleMessageDto("Deleted successfully", HttpStatus.OK), HttpStatus.OK);
+
+        }catch(KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

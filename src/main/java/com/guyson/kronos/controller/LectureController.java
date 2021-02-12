@@ -1,7 +1,7 @@
 package com.guyson.kronos.controller;
 
 import com.guyson.kronos.dto.LectureDto;
-import com.guyson.kronos.dto.LecturerDto;
+import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.LectureService;
@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -61,6 +59,19 @@ public class LectureController {
             LectureDto result = lectureService.addLecture(dto, true);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         } catch (KronosException e) {
+            return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/lecture/{lectureID}")
+    public ResponseEntity<Object> deleteLecture(@PathVariable int lectureID) {
+        try{
+
+            lectureService.deleteLecture(lectureID);
+            return new ResponseEntity<>(new SimpleMessageDto("Deleted successfully", HttpStatus.OK), HttpStatus.OK);
+
+        }catch(KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
