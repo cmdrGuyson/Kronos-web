@@ -51,17 +51,24 @@ public class LectureService {
         LocalTime lecture_start = lecture.getStartTime();
         LocalTime lecture_end = lecture_start.plusHours(lecture.getDuration());
 
-        //Find any overlaps with other lectures of same module
-        findOverlaps(list_byModule, lecture_start, lecture_end, false);
-
-        //Find any overlaps with other lectures in the same room
-        findOverlaps(list_byRoom, lecture_start, lecture_end, true);
+        int id = -1;
 
         //If used to update a lecture
         if (updateFlag) {
             lectureRepository.findById(dto.getLectureID()).orElseThrow(() -> new KronosException("Lecture not found"));
             lecture.setLectureID(dto.getLectureID());
+            id = dto.getLectureID();
         }
+
+
+
+        //Find any overlaps with other lectures of same module
+        findOverlaps(list_byModule, lecture_start, lecture_end, false, id);
+
+        //Find any overlaps with other lectures in the same room
+        findOverlaps(list_byRoom, lecture_start, lecture_end, true, id);
+
+
 
         Lecture result = lectureRepository.save(lecture);
 
@@ -178,7 +185,7 @@ public class LectureService {
         return new ModuleDto(module.getModuleID(), module.getLecturer().getLecturerID(), module.getCredits(), module.getDescription(), module.getName(), module.getLecturer());
     }
 
-    private void findOverlaps(List<Lecture> list, LocalTime lecture_start, LocalTime lecture_end, boolean flag) throws KronosException{
+    private void findOverlaps(List<Lecture> list, LocalTime lecture_start, LocalTime lecture_end, boolean flag, int id) throws KronosException{
 
         String error = "There is already a lecture of this module at this time";
 
@@ -190,6 +197,8 @@ public class LectureService {
         if (list.size() > 0) {
 
             for (Lecture l : list) {
+
+                if(l.getLectureID() == id) continue;
 
                 //Start time and end time of considered lecture
                 LocalTime l_start = l.getStartTime();
