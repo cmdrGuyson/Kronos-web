@@ -40,6 +40,9 @@ public class LectureService {
 
         Lecture lecture = map(dto, module, room);
 
+        //Longer duration
+        if (dto.getDuration() > 10) throw new KronosException("Duration is too long");
+
         //Find any overlaps with existing lectures from the same module
         List<Lecture> list_byModule = lectureRepository.findAllByModuleAndDate(lecture.getModule(), lecture.getDate());
         List<Lecture> list_byRoom = lectureRepository.findAllByRoomAndDate(lecture.getRoom(), lecture.getDate());
