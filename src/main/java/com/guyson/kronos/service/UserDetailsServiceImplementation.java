@@ -1,7 +1,6 @@
 package com.guyson.kronos.service;
 
 import com.guyson.kronos.domain.User;
-import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

@@ -19,7 +19,6 @@ public class JwtProvider {
 
     private KeyStore keyStore;
 
-
     //Asymmetric encryption mechanism is used to sign JWT web token using Java Keystore (private key => sign token and public key => decode token)
     //RSA encryption algorithm used
     @PostConstruct
@@ -67,7 +66,6 @@ public class JwtProvider {
 
     public String getUsernameFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(getPublicKey()).parseClaimsJws(token).getBody();
-
         return claims.getSubject();
     }
 

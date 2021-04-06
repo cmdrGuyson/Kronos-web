@@ -1,4 +1,4 @@
-package com.guyson.kronos.controller;
+package com.guyson.kronos.controller.api_controller;
 
 import com.guyson.kronos.dto.ModuleDto;
 import com.guyson.kronos.dto.SimpleMessageDto;

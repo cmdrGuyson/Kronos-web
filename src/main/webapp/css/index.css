@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap");
+
+.body-login {
+    /*background-color: #efeff5;*/
+    background: rgb(255,255,255) !important;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(203,247,240,1) 100%) !important;
+}
+
+body {
+    font-family: "Poppins", sans-serif !important;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%) !important;
+}
+
+.btn-primary {
+    background-color: #32bea6;
+    border-color: #32bea6;
+    height: 50px;
+    width: 180px;
+}
+
+.btn-primary:hover {
+    background-color: #309c8a;
+    border-color: #309c8a;
+}
+
+.login-heading {
+    font-size: 3rem;
+    margin: 30px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.remember {
+    margin-bottom: 0 !important;
+    margin-top: 5rem !important;
+}
+
+.errors {
+    color: red;
+}
+
+.login-card {
+    margin-left: 50px;
+}
+
+.logout-btn {
+    font-size: 0.8rem;
+}
+
+.c-image {
+    object-fit: cover;
+    height: 450px;
+}
+
+.welcome-title {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.footer {
+    flex-shrink: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+}
