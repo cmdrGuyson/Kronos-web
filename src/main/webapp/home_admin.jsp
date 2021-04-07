@@ -35,6 +35,7 @@
 
     <div class="card recent-students">
         <h4 class="recent-students-title">Recently joined students</h4>
+        <hr class="table-hr">
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
             <thead>
             <tr>

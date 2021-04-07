@@ -6,9 +6,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link ${param.page == "home" ? "active" : null}" href="/">Home</a>
-                <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="#">Lectures</a>
+                <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="/lectures">Lectures</a>
                 <a class="nav-item nav-link ${param.page == "students" ? "active" : null}" href="/students">Students</a>
-                <a class="nav-item nav-link" href="#">Lecturers</a>
+                <a class="nav-item nav-link ${param.page == "lecturers" ? "active" : null}" href="/lecturers">Lecturers</a>
                 <a class="nav-item nav-link" href="#">Modules</a>
                 <a class="nav-item nav-link" href="#">Classes</a>
                 <a class="nav-item nav-link" href="#">Rooms</a>

@@ -12,14 +12,14 @@ body {
     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%) !important;
 }
 
-.btn-primary {
+.btn-primary-login {
     background-color: #32bea6;
     border-color: #32bea6;
     height: 50px;
     width: 180px;
 }
 
-.btn-primary:hover {
+.btn-primary-login:hover {
     background-color: #309c8a;
     border-color: #309c8a;
 }
@@ -110,4 +110,12 @@ body {
 
 .btn-icon {
     margin-right: 10px;
+}
+
+.btn-delete {
+    color: #6c757d !important;
+}
+
+.btn-delete:hover {
+    color: white !important;
 }

@@ -59,7 +59,7 @@
                         <br/>
                     </c:if>
 
-                    <button class="btn btn-md btn-primary btns-block" type="submit">
+                    <button class="btn btn-md btn-primary btn-primary-login btns-block" type="submit">
                         Login
                     </button>
                     <p class="mt-5 mb-3 text-muted remember">
