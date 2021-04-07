@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HomeFacadeController {
+public class FacadeController {
 
     //Facade to direct user type to respective controller to load home page
     @GetMapping("/")

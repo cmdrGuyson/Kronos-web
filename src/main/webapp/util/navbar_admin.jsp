@@ -9,7 +9,7 @@
                 <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="/lectures">Lectures</a>
                 <a class="nav-item nav-link ${param.page == "students" ? "active" : null}" href="/students">Students</a>
                 <a class="nav-item nav-link ${param.page == "lecturers" ? "active" : null}" href="/lecturers">Lecturers</a>
-                <a class="nav-item nav-link" href="#">Modules</a>
+                <a class="nav-item nav-link ${param.page == "modules" ? "active" : null}" href="/modules">Modules</a>
                 <a class="nav-item nav-link" href="#">Classes</a>
                 <a class="nav-item nav-link" href="#">Rooms</a>
             </div>
