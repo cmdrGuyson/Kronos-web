@@ -5,15 +5,16 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link ${param.page == "home" ? "active" : null}" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Lectures</a>
-                <a class="nav-item nav-link" href="#">Students</a>
+                <a class="nav-item nav-link ${param.page == "home" ? "active" : null}" href="/">Home</a>
+                <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="#">Lectures</a>
+                <a class="nav-item nav-link ${param.page == "students" ? "active" : null}" href="/students">Students</a>
                 <a class="nav-item nav-link" href="#">Lecturers</a>
                 <a class="nav-item nav-link" href="#">Modules</a>
                 <a class="nav-item nav-link" href="#">Classes</a>
                 <a class="nav-item nav-link" href="#">Rooms</a>
             </div>
         </div>
+        <a class="btn btn-outline-secondary my-2 my-sm-0 logout-btn">Settings</a>
         <a class="btn btn-outline-danger my-2 my-sm-0 logout-btn" href="/logout">
             Logout
         </a>

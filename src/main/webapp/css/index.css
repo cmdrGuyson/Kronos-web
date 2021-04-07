@@ -46,11 +46,13 @@ body {
 
 .logout-btn {
     font-size: 0.8rem;
+    margin-left: 6px;
 }
 
 .c-image {
     object-fit: cover;
     height: 450px;
+    filter: brightness(40%);
 }
 
 .welcome-title {
@@ -75,6 +77,37 @@ body {
     margin-bottom: 100px;
 }
 
-.recent-students-title {
-    margin-bottom: 30px;
+.recent-students-table {
+    margin-top: 30px;
+}
+.c-title {
+    color: white;
+    font-size: 5rem;
+    margin-bottom: 140px;
+}
+
+.action-td {
+    text-align: center;
+}
+
+.title-add {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.title-in-add {
+    width: 80%;
+}
+
+.btn-in-add {
+    width: 20%;
+}
+
+.table-hr {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.btn-icon {
+    margin-right: 10px;
 }

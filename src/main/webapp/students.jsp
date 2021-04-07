@@ -14,27 +14,23 @@
 <body>
 <!--Navigation Bar-->
 <jsp:include page="util/navbar_admin.jsp" >
-    <jsp:param name="page" value="home" />
+    <jsp:param name="page" value="students" />
 </jsp:include>
 
 <!--Content-->
 <jsp:include page="util/carousel.jsp" >
-    <jsp:param name="page" value="Kronos" />
+    <jsp:param name="page" value="Manage Students" />
 </jsp:include>
 
+
 <div class="container container-home content">
-    <div class="text-center">
-        <h2 class="welcome-title">Welcome Gayanga!</h2>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ullamcorper morbi tincidunt ornare massa eget egestas. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum.
-            Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Pulvinar sapien et ligula ullamcorper. Tellus elementum sagittis vitae et leo duis.
-            Duis at tellus at urna condimentum mattis pellentesque.
-        </p>
-    </div>
 
     <div class="card recent-students">
-        <h4 class="recent-students-title">Recently joined students</h4>
+        <div class="title-add">
+            <h4 class="recent-students-title title-in-add">All Students</h4>
+            <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Student</button>
+        </div>
+        <hr class="table-hr"/>
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
             <thead>
             <tr>
@@ -43,16 +39,26 @@
                 <th>Last Name</th>
                 <th>Class</th>
                 <th>Joined On</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="student" items="${recent_students}">
+            <c:forEach var="student" items="${students}">
+                <c:url value = "#" var = "url">
+                    <c:param name = "username" value = "${student.getUsername()}"/>
+                </c:url>
                 <tr>
+
                     <td>${student.getUsername()}</td>
                     <td>${student.getFirstName()}</td>
                     <td>${student.getLastName()}</td>
                     <td>${student.get_class().getType()}-${student.get_class().getClassID()}</td>
                     <td>${student.getJoinedOn()}</td>
+                    <td class="action-td">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
