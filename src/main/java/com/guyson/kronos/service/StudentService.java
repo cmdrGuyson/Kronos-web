@@ -62,7 +62,7 @@ public class StudentService {
 
         //Find 10 most recent students
         for(int i=0; i<list.size(); i++) {
-            if(i==10) break;
+            if(i==5) break;
             recent.add(list.get(i));
         }
 

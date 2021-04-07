@@ -63,8 +63,11 @@
 <%@ include file="util/footer.jsp" %>
 <%@ include file="util/script_imports.jsp" %>
 <script>
+    //Convert table to JQuery data table
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "aaSorting": []
+        });
     } );
 </script>
 </body>
