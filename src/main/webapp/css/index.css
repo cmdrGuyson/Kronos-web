@@ -68,3 +68,13 @@ body {
 .content {
     flex: 1 0 auto;
 }
+
+.recent-students {
+    padding: 40px;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.recent-students-title {
+    margin-bottom: 30px;
+}

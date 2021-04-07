@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,10 +30,43 @@
             Duis at tellus at urna condimentum mattis pellentesque.
         </p>
     </div>
+
+    <div class="card recent-students">
+        <h4 class="recent-students-title">Recently joined students</h4>
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Class</th>
+                <th>Joined On</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="student" items="${recent_students}">
+                <tr>
+                    <td>${student.getUsername()}</td>
+                    <td>${student.getFirstName()}</td>
+                    <td>${student.getLastName()}</td>
+                    <td>${student.get_class().getType()}-${student.get_class().getClassID()}</td>
+                    <td>${student.getJoinedOn()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
 
 <%@ include file="util/footer.jsp" %>
 <%@ include file="util/script_imports.jsp" %>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 </body>
 
 </html>

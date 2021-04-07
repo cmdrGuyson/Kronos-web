@@ -10,14 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudentDto {
     private int classID;
-    private String username, firstName, lastName, password;
+    private String username, firstName, lastName, password, joinedOn;
     private Class _class;
 
-    public StudentDto(int classID, String username, String firstName, String lastName, Class _class) {
+    public StudentDto(int classID, String username, String firstName, String lastName, Class _class, String joinedOn) {
         this.classID = classID;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this._class = _class;
+        this.joinedOn = joinedOn;
     }
 }

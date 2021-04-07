@@ -10,6 +10,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findByRoleEquals(String role);
 
+    List<User> findByRoleOrderByCreatedAtDesc(String role);
+
     Optional<User> findFirstBy_class_ClassID(int classID);
 
 }

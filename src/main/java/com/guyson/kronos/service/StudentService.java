@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,6 +56,20 @@ public class StudentService {
     }
 
     @Transactional
+    public List<StudentDto> getAllRecentStudents() {
+        List<StudentDto> list = userRepository.findByRoleOrderByCreatedAtDesc("student").stream().map(this::mapDto).collect(Collectors.toList());
+        List<StudentDto> recent = new ArrayList<>();
+
+        //Find 10 most recent students
+        for(int i=0; i<list.size(); i++) {
+            if(i==10) break;
+            recent.add(list.get(i));
+        }
+
+        return recent;
+    }
+
+    @Transactional
     public void deleteStudent(String username) throws KronosException {
 
         User student = userRepository.findById(username).orElseThrow(() -> new KronosException("Student not found"));
@@ -80,7 +97,10 @@ public class StudentService {
 
     //Method to map domain class to data transfer object
     private StudentDto mapDto(User student) {
-        return new StudentDto(student.get_class().getClassID(), student.getUsername(), student.getFirstName(), student.getLastName(), student.get_class());
+
+        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
+
+        return new StudentDto(student.get_class().getClassID(), student.getUsername(), student.getFirstName(), student.getLastName(), student.get_class(), DATE_TIME_FORMATTER.format(student.getCreatedAt()));
     }
 
 }
