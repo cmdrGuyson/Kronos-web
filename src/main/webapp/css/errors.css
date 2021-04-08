@@ -72,3 +72,25 @@ body {
     text-align: center;
 }
 
+.blacklisted-title {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-top: 200px;
+}
+
+.blacklisted-description {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    margin-top: 100px;
+    margin-bottom: 70px;
+}
+
+.blacklisted-button {
+    font-family: "Poppins", sans-serif;
+}
+
+.red-error {
+    background: linear-gradient(90deg, #ba0624 0%, #ba0624 80%);
+}

@@ -23,9 +23,9 @@ public class CustomErrorController implements ErrorController {
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "errors/404_error.jsp";
             }
-//            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-//                return "error-500";
-//            }
+            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                return "errors/500_error.jsp";
+            }
         }
         return "error";
     }
