@@ -49,6 +49,10 @@ body {
     margin-left: 6px;
 }
 
+.settings-btn:hover {
+    color: white !important;
+}
+
 .c-image {
     object-fit: cover;
     height: 450px;

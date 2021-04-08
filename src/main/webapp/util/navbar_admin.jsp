@@ -11,10 +11,10 @@
                 <a class="nav-item nav-link ${param.page == "lecturers" ? "active" : null}" href="/lecturers">Lecturers</a>
                 <a class="nav-item nav-link ${param.page == "modules" ? "active" : null}" href="/modules">Modules</a>
                 <a class="nav-item nav-link ${param.page == "classes" ? "active" : null}" href="/classes">Classes</a>
-                <a class="nav-item nav-link" href="#">Rooms</a>
+                <a class="nav-item nav-link ${param.page == "rooms" ? "active" : null}" href="/rooms">Rooms</a>
             </div>
         </div>
-        <a class="btn btn-outline-secondary my-2 my-sm-0 logout-btn">Settings</a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0 logout-btn settings-btn">Settings</a>
         <a class="btn btn-outline-danger my-2 my-sm-0 logout-btn" href="/logout">
             Logout
         </a>
