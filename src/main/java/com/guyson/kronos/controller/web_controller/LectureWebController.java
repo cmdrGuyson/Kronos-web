@@ -24,9 +24,13 @@ public class LectureWebController {
 
 
         DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
-        DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd Month yyyy").withZone(ZoneId.systemDefault());
+        DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault());
         Instant today = Instant.now();
         String day = DATE_TIME_FORMATTER.format(today);
+
+        day = "31-03-2021";
+
+        System.out.println(DATE_TIME_FORMATTER_2.format(today));
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("lectures.jsp");
