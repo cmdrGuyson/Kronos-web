@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap");
+
+body {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.accessDeniedText {
+    text-align: center;
+    background-color: #7a7b7b;
+    padding-top: 10px;
+    border: solid 1px #7a7b7b;
+    border-radius: 5px;
+    font-weight: 400;
+    color: #fbfbfb;
+}
+
+.accessDenied {
+    background-color: #ffe712;
+}
+
+.sameAccountText {
+    text-align: center;
+    background-color: #a4a7a7;
+    padding-top: 10px;
+    border: solid 1px #a4a7a7;
+    border-radius: 5px;
+    font-weight: 400;
+    color: #fbfbfb;
+}
+
+.successfullyRegistered {
+    text-align: center;
+    background-color: #deecf9;
+    padding-top: 10px;
+    border: solid 1px #dcdcd9;
+    border-radius: 5px;
+    font-weight: 400;
+    color: #537186;
+}
+
+.whiteText {
+    color: white;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+.sameAccount {
+    background-color: #22b5fe !important;
+}
+
+.notFoundBg {
+    background-color: #f0f0f0 !important;
+}
+
+.notFoundText {
+    text-align: center;
+    background-color: #dee1e4;
+    padding-top: 10px;
+    border: solid 1px #dcdcd9;
+    border-radius: 5px;
+    font-weight: 400;
+    color: #537186;
+}
+
+.image-hack {
+    padding: 25px 25px 25px 25px;
+}
+
+.centerAlign {
+    text-align: center;
+}
+

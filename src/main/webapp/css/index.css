@@ -62,7 +62,7 @@ body {
 
 .footer {
     flex-shrink: 0;
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
     width: 100%;
 }
