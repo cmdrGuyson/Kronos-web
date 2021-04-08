@@ -71,6 +71,7 @@
         $('#example').DataTable({
             "aaSorting": [],
             "bLengthChange": false,
+            "bSort": false
         });
     } );
 </script>

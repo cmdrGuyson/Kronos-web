@@ -69,7 +69,8 @@
     //Convert table to JQuery data table
     $(document).ready(function() {
         $('#example').DataTable({
-            "aaSorting": []
+            "aaSorting": [],
+            "bSort": false
         });
     } );
 </script>
