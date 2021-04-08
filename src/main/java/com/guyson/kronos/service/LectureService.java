@@ -10,6 +10,9 @@ import com.guyson.kronos.repository.LectureRepository;
 import com.guyson.kronos.repository.ModuleRepository;
 import com.guyson.kronos.repository.RoomRepository;
 import com.guyson.kronos.repository.UserRepository;
+import com.guyson.kronos.util.SortLectureByModule;
+import com.guyson.kronos.util.SortLectureByTime;
+import com.guyson.kronos.util.SortLectureModule;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -118,9 +121,17 @@ public class LectureService {
         //If user is not found
         com.guyson.kronos.domain.User _user = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("User not found"));
 
+        //Sort lectures using strategy design pattern
+        SortLectureModule context = new SortLectureModule();
+        context.setSortLectureStrategy(new SortLectureByTime());
+
         //If user is an admin return lectures of all modules
         if(_user.getRole().equals("admin")) {
-            return lectureRepository.findAllByDate(date).stream().map(this::mapDto).collect(Collectors.toList());
+
+            //Get lectures and sort by time
+            List<Lecture> lectures = context.sortLectures(lectureRepository.findAllByDate(date));
+
+            return lectures.stream().map(this::mapDto).collect(Collectors.toList());
         }
         //If user is a student return lectures of enrolled modules
         else {
