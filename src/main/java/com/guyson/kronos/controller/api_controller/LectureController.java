@@ -45,7 +45,7 @@ public class LectureController {
     @GetMapping("/lectures/{date}")
     public ResponseEntity<Object> getAllLecturesByDay(@PathVariable String date) {
         try {
-            return new ResponseEntity<>(lectureService.getAllLecturesByDay(date), HttpStatus.OK);
+            return new ResponseEntity<>(lectureService.getAllLecturesByDay(date, "time"), HttpStatus.OK);
         } catch (KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }

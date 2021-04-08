@@ -168,3 +168,12 @@ body {
     border-radius: 7px;
     border-style: double;
 }
+
+.card {
+    border-radius: 1.25rem;
+}
+
+.card-header {
+    border-top-left-radius: 1.25rem !important;
+    border-top-right-radius: 1.25rem !important;
+}

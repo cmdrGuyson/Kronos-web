@@ -103,7 +103,7 @@ public class LectureService {
     }
 
     @Transactional
-    public List<LectureDto> getAllLecturesByDay(String day) throws KronosException {
+    public List<LectureDto> getAllLecturesByDay(String day, String sort) throws KronosException {
 
         //User object from security context holder to obtain current user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -123,7 +123,12 @@ public class LectureService {
 
         //Sort lectures using strategy design pattern
         SortLectureModule context = new SortLectureModule();
-        context.setSortLectureStrategy(new SortLectureByTime());
+
+        if(sort.equals("time")) {
+            context.setSortLectureStrategy(new SortLectureByTime());
+        } else {
+            context.setSortLectureStrategy(new SortLectureByModule());
+        }
 
         //If user is an admin return lectures of all modules
         if(_user.getRole().equals("admin")) {

@@ -31,15 +31,15 @@
     <div class="card card-filter">
         <h4 class="filter-title card-header">Filter Lectures</h4>
         <div class="input-group mb-3">
-            <form class="filter-form">
+            <form class="filter-form" method="POST" action="/filter-lectures">
                 <div class="row filter-row">
                     <div class="col-5">
-                        <input type="date" class="filter-option select-filter" />
+                        <input type="date" name="date" class="filter-option select-filter" value="${inputDate}" required/>
                     </div>
                     <div class="col-5">
                         <select class="custom-select form-control filter-option" id="filter" name="order">
-                            <option selected>Sort by Time</option>
-                            <option>Sort by Module</option>
+                            <option value="time" selected>Sort by Time</option>
+                            <option value="module" >Sort by Module</option>
                         </select>
                     </div>
                     <div class="col-2">
