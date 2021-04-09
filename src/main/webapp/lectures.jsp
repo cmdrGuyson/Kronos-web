@@ -28,6 +28,8 @@
 
 <div class="container container-home content">
 
+    <%@ include file="util/error_alert.jsp" %>
+
     <div class="card card-filter">
         <h4 class="filter-title card-header">Filter Lectures</h4>
         <div class="input-group mb-3">
@@ -55,7 +57,7 @@
     <div class="card recent-students lectures-card">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">Lectures for ${day}</h4>
-            <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Lecture</button>
+            <a type="button" class="btn btn-outline-info btn-in-add" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle btn-icon"></i>Add Lecture</a>
         </div>
         <hr class="table-hr"/>
 
@@ -65,7 +67,7 @@
             try { lect = (List<LectureDto>) request.getAttribute("lectures");}
             catch(Exception e){e.printStackTrace();}
 
-            if (lect.size() <= 0) {
+            if (lect != null && lect.size() <= 0) {
         %>
             <div class="alert alert-secondary" role="alert">
                No lectures available for this day!
@@ -119,6 +121,7 @@
     </div>
 </div>
 
+<%@ include file="modals/add_lecture.jsp" %>
 <%@ include file="modals/delete_lecture.jsp" %>
 <%@ include file="util/footer.jsp" %>
 <%@ include file="util/script_imports.jsp" %>

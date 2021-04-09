@@ -11,4 +11,7 @@ public class SimpleMessageDto {
     private String message;
     private HttpStatus type;
 
+    public SimpleMessageDto(String message) {
+        this.message = message;
+    }
 }

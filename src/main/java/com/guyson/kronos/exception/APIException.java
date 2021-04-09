@@ -9,4 +9,8 @@ import org.springframework.http.HttpStatus;
 public class APIException {
     private String message;
     private HttpStatus status;
+
+    public APIException(String message) {
+        this.message = message;
+    }
 }

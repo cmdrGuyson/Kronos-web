@@ -105,6 +105,11 @@ body {
 
 .btn-in-add {
     width: 20%;
+    color: #17a2b8 !important;
+}
+
+.btn-in-add:hover {
+    color: white !important;
 }
 
 .table-hr {
@@ -176,4 +181,14 @@ body {
 .card-header {
     border-top-left-radius: 1.25rem !important;
     border-top-right-radius: 1.25rem !important;
+}
+
+.alert-message {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.form-row-modal {
+    padding: 5px;
+    margin-top: 20px;
 }

@@ -1,8 +1,11 @@
 package com.guyson.kronos.controller.web_controller;
 
 import com.guyson.kronos.dto.FilterLectureDto;
+import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.LectureService;
+import com.guyson.kronos.service.ModuleService;
+import com.guyson.kronos.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,31 +23,44 @@ import java.time.format.DateTimeFormatter;
 public class LectureWebController {
 
     private final LectureService lectureService;
+    private final ModuleService moduleService;
+    private final RoomService roomService;
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
     private final DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault());
     private final DateTimeFormatter DATE_TIME_FORMATTER_HTML = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @GetMapping("/lectures")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
-    public ModelAndView viewTodaysLectures() {
+    private ModelAndView getToday() {
 
         Instant today = Instant.now();
         String day = DATE_TIME_FORMATTER.format(today);
-
-        //day = "31-03-2021";
-
         System.out.println(DATE_TIME_FORMATTER_2.format(today));
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("lectures.jsp");
+
         try {
             mv.addObject("lectures", lectureService.getAllLecturesByDay(day, "time"));
             mv.addObject("day", DATE_TIME_FORMATTER_2.format(today));
+            mv = getDropdownInfo(mv);
         } catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
             e.printStackTrace();
         }
 
         return mv;
+    }
+
+    private ModelAndView getDropdownInfo(ModelAndView mv) {
+        mv.addObject("rooms", roomService.getAllRooms());
+        mv.addObject("modules", moduleService.getAllModules());
+
+        return mv;
+    }
+
+    @GetMapping("/lectures")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    public ModelAndView viewTodaysLectures() {
+        return getToday();
     }
 
     @PostMapping("/filter-lectures")
@@ -63,6 +79,7 @@ public class LectureWebController {
             mv.addObject("lectures", lectureService.getAllLecturesByDay(day, dto.getOrder()));
             mv.addObject("day", DATE_TIME_FORMATTER_2.format(date));
             mv.addObject("inputDate", dto.getDate());
+            mv = getDropdownInfo(mv);
         } catch (KronosException e) {
             e.printStackTrace();
         }
