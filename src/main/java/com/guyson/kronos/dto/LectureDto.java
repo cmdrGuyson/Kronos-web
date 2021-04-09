@@ -4,8 +4,10 @@ import com.guyson.kronos.domain.Module;
 import com.guyson.kronos.domain.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class LectureDto {
 
@@ -14,5 +16,6 @@ public class LectureDto {
     private int duration, roomID, moduleID;
     private ModuleDto module;
     private Room room;
+
 
 }

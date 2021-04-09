@@ -1,6 +1,8 @@
 package com.guyson.kronos.controller.web_controller;
 
 import com.guyson.kronos.dto.FilterLectureDto;
+import com.guyson.kronos.dto.LectureDto;
+import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.LectureService;
@@ -11,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
@@ -36,6 +39,7 @@ public class LectureWebController {
         System.out.println(DATE_TIME_FORMATTER_2.format(today));
 
         ModelAndView mv = new ModelAndView();
+
         mv.setViewName("lectures.jsp");
 
         try {
@@ -85,6 +89,35 @@ public class LectureWebController {
         }
 
         return mv;
+    }
+
+    @PostMapping("/add-lecture")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView addLecture(@RequestParam String date, @RequestParam String moduleID, @RequestParam String roomID, @RequestParam String startTime, @RequestParam String duration) {
+
+        ModelAndView mv = getToday();
+
+        try {
+            LectureDto dto = new LectureDto();
+            dto.setRoomID(Integer.parseInt(roomID));
+            dto.setModuleID(Integer.parseInt(moduleID));
+            dto.setDuration(Integer.parseInt(duration));
+
+            LocalDate localDate = LocalDate.parse(date, DATE_TIME_FORMATTER_HTML);
+
+            dto.setDate(DATE_TIME_FORMATTER.format(localDate));
+            dto.setStartTime(startTime);
+
+
+            lectureService.addLecture(dto, false);
+            mv = getToday();
+            mv.addObject("success", new SimpleMessageDto("Lecture added successfully!"));
+        }catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
+        return mv;
+
     }
 
 }

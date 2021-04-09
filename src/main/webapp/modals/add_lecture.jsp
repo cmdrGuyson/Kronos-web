@@ -27,7 +27,7 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-body">
-                        <form method="POST" action="#">
+                        <form method="POST" action="/add-lecture">
                             <div class="form-row">
                                 <div class="col">
                                     <label for="inputDate">Date</label>

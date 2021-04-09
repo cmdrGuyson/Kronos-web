@@ -29,6 +29,7 @@
 <div class="container container-home content">
 
     <%@ include file="util/error_alert.jsp" %>
+    <%@ include file="util/success_alert.jsp" %>
 
     <div class="card card-filter">
         <h4 class="filter-title card-header">Filter Lectures</h4>
