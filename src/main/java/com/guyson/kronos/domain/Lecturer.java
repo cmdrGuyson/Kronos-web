@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
@@ -28,6 +29,7 @@ public class Lecturer {
 
     @Column(unique = true)
     @NotEmpty(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
     @NotEmpty(message = "Type is required")

@@ -108,7 +108,7 @@
                             <a type="button" title="Edit lecture" class="btn btn-outline-secondary btn-delete" >
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a type="button" title="Delete lecture" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteLectureModal">
+                            <a type="button" title="Delete lecture" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteLectureModal" onclick="change(${lecture.getLectureID()})">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </div>
@@ -134,6 +134,15 @@
             "bSort": false
         });
     } );
+</script>
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function change(value) {
+
+        document.getElementById("deleteIDInput").value = value;
+        console.log(document.getElementById("deleteIDInput").value);
+    }
+
 </script>
 </body>
 

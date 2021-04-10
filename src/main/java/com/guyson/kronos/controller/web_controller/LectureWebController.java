@@ -11,9 +11,7 @@ import com.guyson.kronos.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
@@ -32,13 +30,15 @@ public class LectureWebController {
     private final DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault());
     private final DateTimeFormatter DATE_TIME_FORMATTER_HTML = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private ModelAndView getToday() {
+    private ModelAndView getToday(ModelAndView _mv) {
 
         Instant today = Instant.now();
         String day = DATE_TIME_FORMATTER.format(today);
         System.out.println(DATE_TIME_FORMATTER_2.format(today));
 
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv = _mv;
+
+        if(mv == null) mv = new ModelAndView();
 
         mv.setViewName("lectures.jsp");
 
@@ -64,7 +64,7 @@ public class LectureWebController {
     @GetMapping("/lectures")
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewTodaysLectures() {
-        return getToday();
+        return getToday(null);
     }
 
     @PostMapping("/filter-lectures")
@@ -95,7 +95,7 @@ public class LectureWebController {
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView addLecture(@RequestParam String date, @RequestParam String moduleID, @RequestParam String roomID, @RequestParam String startTime, @RequestParam String duration) {
 
-        ModelAndView mv = getToday();
+        ModelAndView mv = getToday(null);
 
         try {
             LectureDto dto = new LectureDto();
@@ -110,8 +110,27 @@ public class LectureWebController {
 
 
             lectureService.addLecture(dto, false);
-            mv = getToday();
+            mv = getToday(null);
             mv.addObject("success", new SimpleMessageDto("Lecture added successfully!"));
+        }catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
+        return mv;
+    }
+
+    @PostMapping("/delete-lecture")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView deleteLecture(@RequestParam("lectureID") int lectureID) {
+
+        ModelAndView mv = getToday(null);
+
+        try {
+
+            lectureService.deleteLecture(lectureID);
+            mv = getToday(null);
+            mv.addObject("success", new SimpleMessageDto("Lecture deleted successfully!"));
+
         }catch (KronosException e) {
             mv.addObject("error", new APIException(e.getMessage()));
         }
@@ -119,5 +138,6 @@ public class LectureWebController {
         return mv;
 
     }
+
 
 }
