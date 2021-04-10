@@ -121,6 +121,35 @@ public class LectureWebController {
         return mv;
     }
 
+    @PostMapping("/update-lecture")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView updateLecture(@RequestParam String date, @RequestParam String moduleID, @RequestParam String roomID, @RequestParam String startTime, @RequestParam String duration, @RequestParam String lectureID) {
+
+        ModelAndView mv = getToday(null);
+
+        try {
+            LectureDto dto = new LectureDto();
+            dto.setRoomID(Integer.parseInt(roomID));
+            dto.setModuleID(Integer.parseInt(moduleID));
+            dto.setDuration(Integer.parseInt(duration));
+            dto.setLectureID(Integer.parseInt(lectureID));
+
+            LocalDate localDate = LocalDate.parse(date, DATE_TIME_FORMATTER_HTML);
+
+            dto.setDate(DATE_TIME_FORMATTER.format(localDate));
+            dto.setStartTime(startTime);
+
+
+            lectureService.addLecture(dto, true);
+            mv = getToday(null);
+            mv.addObject("success", new SimpleMessageDto("Lecture updated successfully!"));
+        }catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
+        return mv;
+    }
+
     @PostMapping("/delete-lecture")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView deleteLecture(@RequestParam("lectureID") int lectureID) {

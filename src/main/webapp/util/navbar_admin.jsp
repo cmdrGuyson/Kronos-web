@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="../images/timetable.png" width="40" height="40" alt="" />
         </a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">

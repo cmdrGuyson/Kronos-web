@@ -33,7 +33,7 @@
                     <input
                             type="text"
                             id="inputUsername"
-                            class="form-control"
+                            class="form-control round-border big-padding"
                             name="username"
                             placeholder="Username"
                             maxlength="50"
@@ -46,7 +46,7 @@
                             type="password"
                             maxlength="255"
                             id="inputPassword"
-                            class="form-control"
+                            class="form-control round-border big-padding"
                             name="password"
                             placeholder="Password"
                             required
@@ -59,7 +59,7 @@
                         <br/>
                     </c:if>
 
-                    <button class="btn btn-md btn-primary btn-primary-login btns-block" type="submit">
+                    <button class="btn btn-md btn-primary btn-primary-login btns-block round-border" type="submit">
                         Login
                     </button>
                     <p class="mt-5 mb-3 text-muted remember">

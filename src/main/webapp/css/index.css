@@ -192,3 +192,11 @@ body {
     padding: 5px;
     margin-top: 20px;
 }
+
+.round-border {
+    border-radius: 2rem !important;
+}
+
+.big-padding {
+    padding: 25px;
+}

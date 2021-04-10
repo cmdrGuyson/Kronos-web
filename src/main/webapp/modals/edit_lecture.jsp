@@ -27,7 +27,7 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-body">
-                        <form method="POST" action="/edit-lecture">
+                        <form method="POST" action="/update-lecture">
                             <input hidden id="editIDInput${lecture.getLectureID()}" name="lectureID" value="${lecture.getLectureID()}" />
                             <div class="form-row">
                                 <div class="col">

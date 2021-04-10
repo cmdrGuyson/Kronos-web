@@ -31,7 +31,7 @@
                             <div class="form-row">
                                 <div class="col">
                                     <label for="inputDate">Date</label>
-                                    <input type="date" value="${inputDate}" class="form-control select-filter" name="date" id="inputDate" required>
+                                    <input type="date" class="form-control select-filter" name="date" id="inputDate" required>
                                 </div>
                                 <div class="col">
                                     <label for="inputTime">Start Time</label>
