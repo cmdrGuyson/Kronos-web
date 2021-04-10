@@ -28,7 +28,7 @@ public class LectureWebController {
     private final RoomService roomService;
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
     private final DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault());
-    private final DateTimeFormatter DATE_TIME_FORMATTER_HTML = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter DATE_TIME_FORMATTER_HTML = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
 
     private ModelAndView getToday(ModelAndView _mv) {
 
@@ -45,6 +45,8 @@ public class LectureWebController {
         try {
             mv.addObject("lectures", lectureService.getAllLecturesByDay(day, "time"));
             mv.addObject("day", DATE_TIME_FORMATTER_2.format(today));
+
+            mv.addObject("inputDate", DATE_TIME_FORMATTER_HTML.format(today));
             mv = getDropdownInfo(mv);
         } catch (KronosException e) {
             mv.addObject("error", new APIException(e.getMessage()));

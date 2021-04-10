@@ -1,6 +1,6 @@
 <div
         class="modal fade"
-        id="addModal"
+        id="editModal${lecture.getLectureID()}"
         tabindex="-1"
         role="dialog"
         aria-labelledby="manageGroupModalLabel"
@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Add Lecture
+                    Edit Lecture
                 </h5>
                 <button
                         type="button"
@@ -27,32 +27,33 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-body">
-                        <form method="POST" action="/add-lecture">
+                        <form method="POST" action="/edit-lecture">
+                            <input hidden id="editIDInput${lecture.getLectureID()}" name="lectureID" value="${lecture.getLectureID()}" />
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="inputDate">Date</label>
-                                    <input type="date" value="${inputDate}" class="form-control select-filter" name="date" id="inputDate" required>
+                                    <label for="inputEditDate${lecture.getLectureID()}">Date</label>
+                                    <input type="date" class="form-control select-filter" name="date" id="inputEditDate${lecture.getLectureID()}" value="${inputDate}" required>
                                 </div>
                                 <div class="col">
-                                    <label for="inputTime">Start Time</label>
-                                    <input type="time" class="form-control select-filter" name="startTime" id="inputTime" required>
+                                    <label for="inputEditTime${lecture.getLectureID()}">Start Time</label>
+                                    <input type="time" class="form-control select-filter" value="${lecture.getStartTime()}" name="startTime" id="inputEditTime${lecture.getLectureID()}" required>
                                 </div>
                                 <div class="col">
-                                    <label for="inputDuration">Duration</label>
-                                    <input type="number" class="form-control select-filter" id="inputDuration" name="duration" required>
+                                    <label for="inputEditDuration${lecture.getLectureID()}">Duration</label>
+                                    <input type="number" class="form-control select-filter" value="${lecture.getDuration()}" id="inputEditDuration${lecture.getLectureID()}" name="duration" required>
                                 </div>
                             </div>
                             <div class="form-row form-row-modal">
-                                <label for="inputModule">Module</label>
-                                <select class="custom-select form-control select-filter" id="inputModule" name="moduleID" required>
+                                <label for="inputEditModule${lecture.getLectureID()}">Module</label>
+                                <select class="custom-select form-control select-filter" id="inputEditModule${lecture.getLectureID()}" name="moduleID" required value="${lecture.getModule().getModuleID()}">
                                     <c:forEach var="module" items="${modules}">
                                         <option value="${module.getModuleID()}" >${module.getName()}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-row form-row-modal">
-                                <label for="inputRoom">Room</label>
-                                <select class="custom-select form-control select-filter" id="inputRoom" name="roomID" required>
+                                <label for="inputEditRoom${lecture.getLectureID()}">Room</label>
+                                <select class="custom-select form-control select-filter" id="inputEditRoom${lecture.getLectureID()}" name="roomID" required>
                                     <c:forEach var="room" items="${rooms}">
                                         <option value="${room.getRoomID()}" >${room.getType()}-${room.getRoomID()}</option>
                                     </c:forEach>
@@ -60,7 +61,7 @@
                             </div>
                             <hr />
                             <button class="btn btn-primary" type="submit" value="submit">
-                                Add Lecture
+                                Edit Lecture
                             </button>
                         </form>
                     </div>
@@ -72,17 +73,9 @@
 </div>
 
 <script>
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
-    const yyyy = today.getFullYear();
-    if(dd<10){
-        dd='0'+dd
-    }
-    if(mm<10){
-        mm='0'+mm
-    }
 
-    today = yyyy+'-'+mm+'-'+dd;
-    document.getElementById("inputDate").setAttribute("min", today);
+    // Set dropdowns defaults
+    document.getElementById("inputEditModule${lecture.getLectureID()}").value = "${lecture.getModule().getModuleID()}";
+    document.getElementById("inputEditRoom${lecture.getLectureID()}").value = "${lecture.getRoom().getRoomID()}";
+
 </script>

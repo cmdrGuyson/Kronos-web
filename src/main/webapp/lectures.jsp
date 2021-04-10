@@ -105,7 +105,7 @@
                     <td>${lecture.getModule().getLecturer().getFirstName()} ${lecture.getModule().getLecturer().getLastName()}</td>
                     <td class="action-td">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a type="button" title="Edit lecture" class="btn btn-outline-secondary btn-delete" >
+                            <a type="button" title="Edit lecture" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#editModal${lecture.getLectureID()}">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a type="button" title="Delete lecture" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteLectureModal" onclick="change(${lecture.getLectureID()})">
@@ -114,6 +114,7 @@
                         </div>
                     </td>
                 </tr>
+                <%@ include file="modals/edit_lecture.jsp" %>
             </c:forEach>
             </tbody>
         </table>
