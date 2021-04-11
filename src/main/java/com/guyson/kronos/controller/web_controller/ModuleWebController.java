@@ -1,5 +1,6 @@
 package com.guyson.kronos.controller.web_controller;
 
+import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.ModuleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,20 @@ public class ModuleWebController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("modules.jsp");
         mv.addObject("modules", moduleService.getAllModules());
+        return mv;
+    }
+
+    @GetMapping("/student-modules")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    public ModelAndView viewStudentModules() {
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("modules.jsp");
+        try {
+            mv.addObject("modules", moduleService.getAllStudentModules());
+        } catch (KronosException e) {
+            e.printStackTrace();
+        }
         return mv;
     }
 }

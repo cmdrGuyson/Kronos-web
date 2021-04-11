@@ -200,3 +200,11 @@ body {
 .big-padding {
     padding: 25px;
 }
+
+.enrol-btn {
+    width: 95px;
+}
+
+.enrol-icon {
+    margin-right: 4px;
+}

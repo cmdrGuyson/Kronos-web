@@ -1,5 +1,7 @@
+<%@ page import="com.guyson.kronos.dto.StudentModuleDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +20,17 @@
 </jsp:include>
 
 <!--Content-->
-<jsp:include page="util/carousel.jsp" >
-    <jsp:param name="page" value="Manage Modules" />
-</jsp:include>
+<sec:authorize access="hasRole('STUDENT')">
+    <jsp:include page="util/carousel.jsp" >
+        <jsp:param name="page" value="Manage Enrollments" />
+    </jsp:include>
+</sec:authorize>
+<sec:authorize access="hasRole('ADMIN')">
+    <jsp:include page="util/carousel.jsp" >
+        <jsp:param name="page" value="Manage Modules" />
+    </jsp:include>
+</sec:authorize>
+
 
 
 <div class="container container-home content">
@@ -28,7 +38,9 @@
     <div class="card recent-students">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">All Modules</h4>
-            <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Module</button>
+            <sec:authorize access="hasRole('ADMIN')">
+                <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Module</button>
+            </sec:authorize>
         </div>
         <hr class="table-hr"/>
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
@@ -54,11 +66,32 @@
                     <td>${module.getCredits()}</td>
                     <td>${module.getDescription()}</td>
                     <td>${module.getLecturer().getFirstName()} ${module.getLecturer().getLastName()}</td>
-                    <td class="action-td">
-                        <a type="button" title="Delete module" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteModuleModal">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
+
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <td class="action-td">
+                                <a type="button" title="Delete module" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteModuleModal">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('STUDENT')">
+                            <% StudentModuleDto studentModuleDto = (StudentModuleDto) pageContext.getAttribute("module");
+                                if (studentModuleDto.isEnrolled()) {
+                            %>
+                            <td class="action-td" style="width: 12% !important;">
+                                <button type="button" title="Enroll from module" class="btn btn-outline-danger enrol-btn">
+                                    <i class="fas fa-minus-circle enrol-icon"></i>Unroll
+                                </button>
+                            </td>
+                            <% } else { %>
+                            <td class="action-td" style="width: 12% !important;">
+                                <button type="button" title="Enroll in module" class="btn btn-outline-primary enrol-btn">
+                                    <i class="fas fa-plus-circle enrol-icon"></i>Enroll
+                                </button>
+                            </td>
+                            <% } %>
+                        </sec:authorize>
+
                 </tr>
             </c:forEach>
             </tbody>
