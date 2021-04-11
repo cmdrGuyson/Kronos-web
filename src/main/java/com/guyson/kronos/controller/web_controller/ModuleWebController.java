@@ -31,11 +31,6 @@ public class ModuleWebController {
     @GetMapping("/student-modules")
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewStudentModules() {
-        return getAllStudentModules();
-    }
-
-    private ModelAndView getAllStudentModules() {
-
         ModelAndView mv = new ModelAndView();
 
         mv.setViewName("modules.jsp");
@@ -47,15 +42,28 @@ public class ModuleWebController {
         return mv;
     }
 
+    private ModelAndView getMyModules() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("modules.jsp");
+        try {
+            mv.addObject("modules", moduleService.getMyModules());
+            mv.addObject("myModules", "My Modules");
+        } catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+        return mv;
+    }
+
     @PostMapping("/enroll")
     @PreAuthorize("hasRole('STUDENT')")
     public ModelAndView enroll(@RequestParam String moduleID) {
 
-      ModelAndView mv = getAllStudentModules();
+      ModelAndView mv = getMyModules();
 
       try {
           moduleService.enroll(Integer.parseInt(moduleID));
-          mv = getAllStudentModules();
+          mv = getMyModules();
           mv.addObject("success", new SimpleMessageDto("Successfully enrolled in module!"));
       }catch (KronosException e) {
           mv.addObject("error", new APIException(e.getMessage()));
@@ -68,16 +76,22 @@ public class ModuleWebController {
     @PreAuthorize("hasRole('STUDENT')")
     public ModelAndView unroll(@RequestParam String moduleID) {
 
-        ModelAndView mv = getAllStudentModules();
+        ModelAndView mv = getMyModules();
 
         try {
             moduleService.unroll(Integer.parseInt(moduleID));
-            mv = getAllStudentModules();
+            mv = getMyModules();
             mv.addObject("success", new SimpleMessageDto("Successfully unrolled from module!"));
         }catch (KronosException e) {
             mv.addObject("error", new APIException(e.getMessage()));
         }
 
         return mv;
+    }
+
+    @GetMapping("/my-modules")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    public ModelAndView viewMyModules() {
+        return getMyModules();
     }
 }

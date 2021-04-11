@@ -16,13 +16,13 @@
 <body>
 <!--Navigation Bar-->
 <jsp:include page="util/navbar_admin.jsp" >
-    <jsp:param name="page" value="modules" />
+    <jsp:param name="page" value="${myModules == null ? 'modules' : 'my-modules'}" />
 </jsp:include>
 
 <!--Content-->
 <sec:authorize access="hasRole('STUDENT')">
     <jsp:include page="util/carousel.jsp" >
-        <jsp:param name="page" value="Manage Enrollments" />
+        <jsp:param name="page" value="${myModules == null ? 'Manage Enrollments' : 'My Modules'}" />
     </jsp:include>
 </sec:authorize>
 <sec:authorize access="hasRole('ADMIN')">
@@ -40,7 +40,7 @@
 
     <div class="card recent-students card-filter">
         <div class="title-add">
-            <h4 class="recent-students-title title-in-add">All Modules</h4>
+            <h4 class="recent-students-title title-in-add">${myModules == null ? 'All Modules' : 'My Modules'}</h4>
             <sec:authorize access="hasRole('ADMIN')">
                 <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Module</button>
             </sec:authorize>
