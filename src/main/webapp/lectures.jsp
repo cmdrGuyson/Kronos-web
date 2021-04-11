@@ -1,7 +1,7 @@
 <%@ page import="com.guyson.kronos.dto.LectureDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
@@ -22,9 +22,16 @@
 </jsp:include>
 
 <!--Content-->
-<jsp:include page="util/carousel.jsp" >
-    <jsp:param name="page" value="Manage Lectures" />
-</jsp:include>
+<sec:authorize access="hasRole('STUDENT')">
+    <jsp:include page="util/carousel.jsp" >
+        <jsp:param name="page" value="My Lectures" />
+    </jsp:include>
+</sec:authorize>
+<sec:authorize access="hasRole('ADMIN')">
+    <jsp:include page="util/carousel.jsp" >
+        <jsp:param name="page" value="Manage Lectures" />
+    </jsp:include>
+</sec:authorize>
 
 
 <div class="container container-home content">

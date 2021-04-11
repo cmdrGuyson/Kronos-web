@@ -35,7 +35,10 @@
 
 <div class="container container-home content">
 
-    <div class="card recent-students">
+    <%@ include file="util/error_alert.jsp" %>
+    <%@ include file="util/success_alert.jsp" %>
+
+    <div class="card recent-students card-filter">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">All Modules</h4>
             <sec:authorize access="hasRole('ADMIN')">
@@ -79,15 +82,22 @@
                                 if (studentModuleDto.isEnrolled()) {
                             %>
                             <td class="action-td" style="width: 12% !important;">
-                                <button type="button" title="Enroll from module" class="btn btn-outline-danger enrol-btn">
-                                    <i class="fas fa-minus-circle enrol-icon"></i>Unroll
-                                </button>
+
+                                <form method="POST" action="/unroll">
+                                    <input hidden value="${module.getModuleID()}" name="moduleID" />
+                                    <button type="submit" title="Unroll from module" class="btn btn-outline-danger enrol-btn">
+                                        <i class="fas fa-minus-circle enrol-icon"></i>Unroll
+                                    </button>
+                                </form>
                             </td>
                             <% } else { %>
                             <td class="action-td" style="width: 12% !important;">
-                                <button type="button" title="Enroll in module" class="btn btn-outline-primary enrol-btn">
-                                    <i class="fas fa-plus-circle enrol-icon"></i>Enroll
-                                </button>
+                                <form method="POST" action="/enroll">
+                                    <input hidden value="${module.getModuleID()}" name="moduleID" />
+                                    <button type="submit" title="Enroll in module" class="btn btn-outline-primary enrol-btn">
+                                        <i class="fas fa-plus-circle enrol-icon"></i>Enroll
+                                    </button>
+                                </form>
                             </td>
                             <% } %>
                         </sec:authorize>
@@ -106,8 +116,8 @@
     //Convert table to JQuery data table
     $(document).ready(function() {
         $('#example').DataTable({
-            "aaSorting": [],
-            "bSort": false
+            "order": [[ 0, "asc" ]],
+            //"bSort": false
         });
     } );
 </script>

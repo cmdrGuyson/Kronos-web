@@ -1,11 +1,15 @@
 package com.guyson.kronos.controller.web_controller;
 
+import com.guyson.kronos.dto.SimpleMessageDto;
+import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.ModuleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -27,14 +31,53 @@ public class ModuleWebController {
     @GetMapping("/student-modules")
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewStudentModules() {
+        return getAllStudentModules();
+    }
+
+    private ModelAndView getAllStudentModules() {
 
         ModelAndView mv = new ModelAndView();
+
         mv.setViewName("modules.jsp");
         try {
             mv.addObject("modules", moduleService.getAllStudentModules());
         } catch (KronosException e) {
-            e.printStackTrace();
+            mv.addObject("error", new APIException(e.getMessage()));
         }
+        return mv;
+    }
+
+    @PostMapping("/enroll")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ModelAndView enroll(@RequestParam String moduleID) {
+
+      ModelAndView mv = getAllStudentModules();
+
+      try {
+          moduleService.enroll(Integer.parseInt(moduleID));
+          mv = getAllStudentModules();
+          mv.addObject("success", new SimpleMessageDto("Successfully enrolled in module!"));
+      }catch (KronosException e) {
+          mv.addObject("error", new APIException(e.getMessage()));
+      }
+
+      return mv;
+    }
+
+    @PostMapping("/unroll")
+    @PreAuthorize("hasRole('STUDENT')")
+    public ModelAndView unroll(@RequestParam String moduleID) {
+
+        ModelAndView mv = getAllStudentModules();
+
+        try {
+            moduleService.unroll(Integer.parseInt(moduleID));
+            mv = getAllStudentModules();
+            mv.addObject("success", new SimpleMessageDto("Successfully unrolled from module!"));
+        }catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
         return mv;
     }
 }
