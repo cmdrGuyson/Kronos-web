@@ -27,4 +27,23 @@ public class FacadeController {
 
         return mv;
     }
+
+    //Facade to direct user type to respective controller to load modules page
+    @GetMapping("/modules")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    public ModelAndView sendToModules() {
+
+        //Check if user is an administrator
+        boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
+
+        ModelAndView mv = new ModelAndView();
+
+        if(isAdmin) {
+            mv.setViewName("redirect:/all-modules");
+        }else{
+            mv.setViewName("redirect:/student-modules");
+        }
+
+        return mv;
+    }
 }

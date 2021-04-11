@@ -1,10 +1,12 @@
 package com.guyson.kronos.service;
 
 import com.guyson.kronos.domain.User;
+import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

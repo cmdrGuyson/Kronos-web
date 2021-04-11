@@ -13,7 +13,7 @@ public class ModuleWebController {
 
     private final ModuleService moduleService;
 
-    @GetMapping("/modules")
+    @GetMapping("/all-modules")
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewAllModules() {
 

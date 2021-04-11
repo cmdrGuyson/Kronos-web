@@ -7,6 +7,7 @@ import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.repository.ClassRepository;
 import com.guyson.kronos.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +83,17 @@ public class StudentService {
 
         userRepository.deleteById(username);
 
+    }
+
+    @Transactional
+    public String getName() throws KronosException {
+        //User object from security context holder to obtain current user
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //If student is not found
+        com.guyson.kronos.domain.User _user = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("User not found"));
+
+        return _user.getFirstName();
     }
 
     //Method to map data transfer object to domain class
