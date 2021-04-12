@@ -82,13 +82,31 @@ public class UserWebController {
         boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
 
         mv.setViewName("/home-student.jsp");
-        if(isAdmin) mv.setViewName("/home_admin.jsp");
+
+        if(isAdmin) {
+            mv.setViewName("/home_admin.jsp");
+            mv.addObject("recent_students", studentService.getAllRecentStudents());
+        }else {
+            Instant today = Instant.now();
+            String day = DATE_TIME_FORMATTER.format(today);
+            try {
+                mv.addObject("lectures", lectureService.getAllLecturesByDay(day, "time"));
+            } catch (KronosException e) {
+                e.printStackTrace();
+            }
+        }
 
         try {
             authService.changePassword(dto);
             mv.addObject("successSetting", new SimpleMessageDto("Successfully changed password!"));
         }catch(KronosException e) {
             mv.addObject("errorSetting", new APIException(e.getMessage()));
+        }
+
+        try {
+            mv.addObject("name", studentService.getName());
+        }catch(KronosException e) {
+            e.printStackTrace();
         }
 
         return mv;
