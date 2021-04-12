@@ -72,7 +72,7 @@ public class ClassWebController {
         try {
             classService.deleteClass(Integer.parseInt(classID));
             mv = getClasses();
-            mv.addObject("success", new SimpleMessageDto("Class added successfully!"));
+            mv.addObject("success", new SimpleMessageDto("Class deleted successfully!"));
         } catch (KronosException e) {
             mv.addObject("error", new APIException(e.getMessage()));
         }

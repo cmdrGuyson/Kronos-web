@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Add Class
+                    Add Room
                 </h5>
                 <button
                         type="button"
@@ -27,7 +27,7 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-body">
-                        <form method="POST" action="/add-class">
+                        <form method="POST" action="/add-room">
                             <div class="form-row" style="padding: 5px;">
                                 <label for="inputType">Type</label>
                                 <select class="custom-select form-control select-filter" id="inputType" name="type" required>
@@ -44,7 +44,7 @@
                             </div>
                             <hr />
                             <button class="btn btn-primary" type="submit" value="submit">
-                                Add Class
+                                Add Room
                             </button>
                         </form>
                     </div>

@@ -49,7 +49,7 @@
                             <div class="form-row form-row-model-text">
                                 <div class="col">
                                     <label for="inputDescription">Description</label>
-                                    <textarea class="form-control" id="inputDescription" name="description" maxlength="255" required></textarea>
+                                    <textarea class="form-control text-area-round" id="inputDescription" name="description" rows="4" maxlength="255" required></textarea>
                                 </div>
                             </div>
                             <hr />
