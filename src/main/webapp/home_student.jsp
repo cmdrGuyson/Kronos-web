@@ -1,3 +1,6 @@
+<%@ page import="com.guyson.kronos.dto.LectureDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -14,7 +17,7 @@
 
 <body>
 <!--Navigation Bar-->
-<jsp:include page="util/navbar_admin.jsp" >
+<jsp:include page="util/navbar.jsp" >
     <jsp:param name="page" value="home" />
 </jsp:include>
 
@@ -37,6 +40,23 @@
     <div class="card recent-students">
         <h4 class="recent-students-title">Today's Lectures</h4>
         <hr class="table-hr">
+
+        <%
+            //If no lectures are present
+            List<LectureDto> lect = new ArrayList<>();
+            try { lect = (List<LectureDto>) request.getAttribute("lectures");}
+            catch(Exception e){e.printStackTrace();}
+
+            if (lect != null && lect.size() <= 0) {
+        %>
+        <div class="alert alert-secondary" role="alert">
+            No lectures available for this day!
+        </div>
+        <%
+
+        } else {
+        %>
+
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
             <thead>
             <tr>
@@ -59,6 +79,7 @@
             </c:forEach>
             </tbody>
         </table>
+        <% } %>
     </div>
 </div>
 

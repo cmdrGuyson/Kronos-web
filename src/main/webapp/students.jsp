@@ -13,7 +13,7 @@
 
 <body>
 <!--Navigation Bar-->
-<jsp:include page="util/navbar_admin.jsp" >
+<jsp:include page="util/navbar.jsp" >
     <jsp:param name="page" value="students" />
 </jsp:include>
 

@@ -27,9 +27,11 @@
                 </div>
             </div>
         </sec:authorize>
-        <a class="btn btn-outline-secondary my-2 my-sm-0 logout-btn settings-btn">Settings</a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0 logout-btn settings-btn" data-toggle="modal" data-target="#settingsModal">Settings</a>
         <a class="btn btn-outline-danger my-2 my-sm-0 logout-btn" href="/logout">
             Logout
         </a>
     </div>
 </nav>
+
+<%@ include file="settings_modal.jsp" %>

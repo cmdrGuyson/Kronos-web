@@ -14,3 +14,7 @@
         crossorigin="anonymous"
 ></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+<script>
+    $('#settingsModal').modal("${(successSetting != null || errorSetting != null) ? 'show' : 'hide'}");
+</script>
