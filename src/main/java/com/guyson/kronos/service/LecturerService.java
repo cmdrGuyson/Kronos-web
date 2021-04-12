@@ -5,6 +5,7 @@ import com.guyson.kronos.dto.LecturerDto;
 import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.repository.LecturerRepository;
 import com.guyson.kronos.repository.ModuleRepository;
+import com.guyson.kronos.util.ExtraUtilities;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,9 @@ public class LecturerService {
         if(existing.isPresent()) {
             throw new KronosException("Email already exists");
         }
+
+        //Validate email
+        if(!ExtraUtilities.isEmailValid(dto.getEmail())) throw new KronosException("Invalid Email");
 
         Lecturer lecturer = lecturerRepository.save(map(dto));
 
@@ -59,7 +63,7 @@ public class LecturerService {
     //Method to map data transfer object to domain class
     private Lecturer map(LecturerDto dto) {
         return Lecturer.builder().firstName(dto.getFirstName()).createdAt(Instant.now())
-                .lastName(dto.getLastName()).email(dto.getEmail()).type(dto.getType()).build();
+                .lastName(dto.getLastName()).email(dto.getEmail()).type(dto.getType().toLowerCase()).build();
     }
 
     //Method to map domain class to data transfer object

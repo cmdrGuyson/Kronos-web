@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 public class ExtraUtilities {
 
@@ -34,6 +35,12 @@ public class ExtraUtilities {
             return ipFromHeader;
         }
         return request.getRemoteAddr();
+    }
+
+    //Method to validate emails
+    public static boolean isEmailValid(String email) {
+        final Pattern EMAIL_REGEX = Pattern.compile("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", Pattern.CASE_INSENSITIVE);
+        return EMAIL_REGEX.matcher(email).matches();
     }
 
 }
