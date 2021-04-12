@@ -1,8 +1,11 @@
 package com.guyson.kronos.controller.web_controller;
 
+import com.guyson.kronos.dto.LecturerDto;
+import com.guyson.kronos.dto.ModuleDto;
 import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.exception.APIException;
 import com.guyson.kronos.exception.KronosException;
+import com.guyson.kronos.service.LecturerService;
 import com.guyson.kronos.service.ModuleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,14 +20,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class ModuleWebController {
 
     private final ModuleService moduleService;
+    private final LecturerService lecturerService;
 
     @GetMapping("/all-modules")
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewAllModules() {
+        return getModules();
+    }
 
+    private ModelAndView getModules() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("modules.jsp");
         mv.addObject("modules", moduleService.getAllModules());
+        mv.addObject("lecturers", lecturerService.getAllLecturers());
         return mv;
     }
 
@@ -65,7 +73,7 @@ public class ModuleWebController {
           moduleService.enroll(Integer.parseInt(moduleID));
           mv = getMyModules();
           mv.addObject("success", new SimpleMessageDto("Successfully enrolled in module!"));
-      }catch (KronosException e) {
+      } catch (KronosException e) {
           mv.addObject("error", new APIException(e.getMessage()));
       }
 
@@ -93,5 +101,50 @@ public class ModuleWebController {
     @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     public ModelAndView viewMyModules() {
         return getMyModules();
+    }
+
+    @PostMapping("/add-module")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView addModule(@RequestParam String lecturerID, @RequestParam String name, @RequestParam String description, @RequestParam String credits) {
+
+        ModelAndView mv = getModules();
+
+        try {
+
+            ModuleDto dto = new ModuleDto();
+            dto.setCredits(Integer.parseInt(credits));
+            dto.setName(name);
+            dto.setDescription(description);
+            dto.setLecturerID(Integer.parseInt(lecturerID));
+
+            moduleService.addModule(dto);
+            mv = getModules();
+            mv.addObject("success", new SimpleMessageDto("Module added successfully!"));
+
+        } catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
+        return mv;
+    }
+
+    @PostMapping("/delete-module")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView deleteModule(@RequestParam("moduleID") int moduleID) {
+
+        ModelAndView mv = getModules();
+
+        try {
+
+            moduleService.deleteModule(moduleID);
+            mv = getModules();
+            mv.addObject("success", new SimpleMessageDto("Module deleted successfully!"));
+
+        }catch (KronosException e) {
+            mv.addObject("error", new APIException(e.getMessage()));
+        }
+
+        return mv;
+
     }
 }

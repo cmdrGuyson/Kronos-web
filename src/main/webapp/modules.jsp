@@ -42,7 +42,7 @@
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">${myModules == null ? 'All Modules' : 'My Modules'}</h4>
             <sec:authorize access="hasRole('ADMIN')">
-                <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Module</button>
+                <a type="button" class="btn btn-outline-info btn-in-add" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle btn-icon"></i>Add Module</a>
             </sec:authorize>
         </div>
         <hr class="table-hr"/>
@@ -72,7 +72,7 @@
 
                         <sec:authorize access="hasRole('ADMIN')">
                             <td class="action-td">
-                                <a type="button" title="Delete module" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteModuleModal">
+                                <a type="button" title="Delete module" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteModuleModal" onclick="change(${module.getModuleID()})">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -109,6 +109,7 @@
     </div>
 </div>
 
+<%@ include file="modals/add_module.jsp" %>
 <%@ include file="modals/delete_module.jsp" %>
 <%@ include file="util/footer.jsp" %>
 <%@ include file="util/script_imports.jsp" %>
@@ -120,6 +121,15 @@
             //"bSort": false
         });
     } );
+</script>
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function change(value) {
+
+        document.getElementById("deleteIDInput").value = value;
+        console.log(document.getElementById("deleteIDInput").value);
+    }
+
 </script>
 </body>
 

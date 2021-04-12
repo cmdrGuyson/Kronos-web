@@ -12,7 +12,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <form action="/delete-module" method="POST">
+                    <input hidden id="deleteIDInput" name="moduleID" />
+                    <button id="confirmDeleteButton" type="submit" class="btn btn-primary">Confirm</button>
+                </form>
             </div>
         </div>
     </div>

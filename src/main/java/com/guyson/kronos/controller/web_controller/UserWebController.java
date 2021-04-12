@@ -1,6 +1,5 @@
 package com.guyson.kronos.controller.web_controller;
 
-import com.guyson.kronos.domain.Class;
 import com.guyson.kronos.dto.ChangePasswordRequest;
 import com.guyson.kronos.dto.SimpleMessageDto;
 import com.guyson.kronos.exception.APIException;
@@ -8,13 +7,9 @@ import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.AuthService;
 import com.guyson.kronos.service.LectureService;
 import com.guyson.kronos.service.StudentService;
-import com.guyson.kronos.service.UserDetailsServiceImplementation;
 import com.guyson.kronos.util.ExtraUtilities;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -105,7 +100,7 @@ public class UserWebController {
 
         try {
             mv.addObject("name", studentService.getName());
-        }catch(KronosException e) {
+        } catch (KronosException e) {
             e.printStackTrace();
         }
 
