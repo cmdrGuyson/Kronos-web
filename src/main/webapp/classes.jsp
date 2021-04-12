@@ -25,10 +25,13 @@
 
 <div class="container container-home content">
 
+    <%@ include file="util/error_alert.jsp" %>
+    <%@ include file="util/success_alert.jsp" %>
+
     <div class="card recent-students">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">All Classes</h4>
-            <button type="button" class="btn btn-outline-info btn-in-add"><i class="fas fa-plus-circle btn-icon"></i>Add Class</button>
+            <a type="button" class="btn btn-outline-info btn-in-add" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle btn-icon"></i>Add Class</a>
         </div>
         <hr class="table-hr"/>
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
@@ -51,7 +54,7 @@
                     <td>${class.getType()}</td>
                     <td>${class.getDescription()}</td>
                     <td class="action-td">
-                        <a type="button" title="Delete lecturer" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteClassModal">
+                        <a type="button" title="Delete class" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteClassModal" onclick="change(${class.getClassID()})">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
@@ -62,6 +65,7 @@
     </div>
 </div>
 
+<%@ include file="modals/add_class.jsp" %>
 <%@ include file="modals/delete_class.jsp" %>
 <%@ include file="util/footer.jsp" %>
 <%@ include file="util/script_imports.jsp" %>
@@ -73,6 +77,14 @@
             "bSort": false
         });
     } );
+</script>
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function change(value) {
+
+        document.getElementById("deleteIDInput").value = value;
+        console.log(document.getElementById("deleteIDInput").value);
+    }
 </script>
 </body>
 

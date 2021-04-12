@@ -89,6 +89,7 @@
                                         <i class="fas fa-minus-circle enrol-icon"></i>Unroll
                                     </button>
                                 </form>
+
                             </td>
                             <% } else { %>
                             <td class="action-td" style="width: 12% !important;">
