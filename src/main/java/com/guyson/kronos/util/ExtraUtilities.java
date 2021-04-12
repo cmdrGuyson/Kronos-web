@@ -3,6 +3,7 @@ package com.guyson.kronos.util;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 public class ExtraUtilities {
@@ -24,6 +25,15 @@ public class ExtraUtilities {
             e.printStackTrace();
         }
         return hasRole;
+    }
+
+    //Get IP address of HTTP request source
+    public static String getRemoteAddr(HttpServletRequest request) {
+        String ipFromHeader = request.getHeader("X-FORWARDED-FOR");
+        if (ipFromHeader != null && ipFromHeader.length() > 0) {
+            return ipFromHeader;
+        }
+        return request.getRemoteAddr();
     }
 
 }

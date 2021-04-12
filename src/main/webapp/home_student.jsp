@@ -52,7 +52,7 @@
                 <tr>
                     <td>${lecture.getModule().getName()}</td>
                     <td>${lecture.getStartTime()}</td>
-                    <td>${lecture.getDuration()} hours</td>
+                    <td>${lecture.getDuration()} ${lecture.getDuration() == "1" ? "hour" : "hours"}</td>
                     <td>${lecture.getRoom().getType()}-${lecture.getRoom().getRoomID()}</td>
                     <td>${lecture.getModule().getLecturer().getFirstName()} ${lecture.getModule().getLecturer().getLastName()}</td>
                 </tr>
