@@ -193,6 +193,10 @@ body {
     margin-top: 20px;
 }
 
+.form-row-model-text {
+    margin-top: 20px;
+}
+
 .round-border {
     border-radius: 2rem !important;
 }
@@ -207,4 +211,10 @@ body {
 
 .enrol-icon {
     margin-right: 4px;
+}
+
+.model-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #575a5d;
 }
