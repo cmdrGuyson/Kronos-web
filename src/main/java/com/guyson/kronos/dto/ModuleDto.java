@@ -13,5 +13,6 @@ public class ModuleDto {
     private int moduleID, lecturerID, credits;
     private String description, name;
     private Lecturer lecturer;
+    
 
 }

@@ -7,6 +7,6 @@ import java.util.List;
 //Strategy design pattern to sort lectures
 public interface SortLectureStrategy {
 
-    public List<Lecture> sort(List<Lecture> lectures);
+    List<Lecture> sort(List<Lecture> lectures);
 
 }
