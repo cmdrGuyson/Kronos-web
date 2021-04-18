@@ -1,6 +1,5 @@
 package com.guyson.kronos;
 
-import com.guyson.kronos.dto.ClassDto;
 import com.guyson.kronos.dto.RoomDto;
 import com.guyson.kronos.enums.RoomType;
 import com.guyson.kronos.exception.KronosException;
@@ -23,24 +22,23 @@ public class RoomServiceTests {
     @Autowired
     private RoomService roomService;
 
-    private int deleteRoomId;
+    private int deleteRoomId, roomIdWithLecture;
+
+    @Autowired
+    private TestUtil testUtil;
 
     @BeforeAll
-    public void init() {
+    public void init() throws KronosException {
 
-        RoomDto dto = new RoomDto();
-        dto.setType(RoomType.values()[0].getType());
-        dto.setDescription("This is a test description");
-
-        RoomDto result = roomService.addRoom(dto);
-        deleteRoomId = result.getRoomID();
+        deleteRoomId = testUtil.createRoomToBeDeleted();
+        roomIdWithLecture = testUtil.createRoomWithLectures();
 
     }
 
     @Test
     public void testAddRoom() {
         RoomDto dto = new RoomDto();
-        dto.setType(RoomType.values()[0].getType());
+        dto.setType(RoomType.HALL.getType());
         dto.setDescription("This is a test description");
 
         RoomDto result = roomService.addRoom(dto);
@@ -52,6 +50,8 @@ public class RoomServiceTests {
     @Test
     public void testGetAllRooms() {
         List<RoomDto> results = roomService.getAllRooms();
+
+        System.out.println(results.size());
 
         boolean isTrue = results.size() > 0;
 
@@ -77,6 +77,22 @@ public class RoomServiceTests {
         assertTrue(isTrue);
 
         System.out.println("[TEST] Delete room [PASSED]");
+    }
+
+    @Test
+    public void testDeleteRoomWithLecture() {
+
+        boolean isTrue = false;
+
+        try {
+            roomService.deleteRoom(roomIdWithLecture);
+        } catch (KronosException e) {
+            if (e.getMessage().equals("Room has lectures")) isTrue = true;
+        }
+
+        assertTrue(isTrue);
+
+        System.out.println("[TEST] Attempt to delete room with lecture [PASSED]");
     }
 
 }

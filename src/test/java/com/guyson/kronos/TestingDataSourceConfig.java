@@ -20,7 +20,6 @@ public class TestingDataSourceConfig {
                 .setType(H2)
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)
-                //.addScript("kronos.sql")
                 .build();
     }
 }

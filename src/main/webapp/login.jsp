@@ -53,7 +53,7 @@
                     />
                     <br/>
 
-                    <c:set var="fail" value='<%= request.getParameter("errors")%>'/>
+                    <c:set var="fail" value='<%= request.getParameter("error")%>'/>
                     <c:if test="${fail == true}">
                         <p class="errors">Incorrect Username or Password</p>
                         <br/>

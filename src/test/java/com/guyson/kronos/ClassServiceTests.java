@@ -22,24 +22,23 @@ class ClassServiceTests {
     @Autowired
     private ClassService classService;
 
-    private int deleteClassId;
+    private int deleteClassId, classIdWithStudent;
+
+    @Autowired
+    private TestUtil testUtil;
 
     @BeforeAll
-    public void init() {
+    public void init() throws KronosException {
 
-        ClassDto dto = new ClassDto();
-        dto.setType(ClassType.values()[0].getType());
-        dto.setDescription("This is a test description");
-
-        ClassDto result = classService.addClass(dto);
-        deleteClassId = result.getClassID();
+        deleteClassId = testUtil.createClassToBeDeleted();
+        classIdWithStudent = testUtil.createClassWithStudent();
     }
 
     @Test
     public void testAddClass() {
 
         ClassDto dto = new ClassDto();
-        dto.setType(ClassType.values()[0].getType());
+        dto.setType(ClassType.LAW.getType());
         dto.setDescription("This is a test description");
 
         ClassDto result = classService.addClass(dto);
@@ -77,6 +76,22 @@ class ClassServiceTests {
         assertTrue(isTrue);
 
         System.out.println("[TEST] Delete class [PASSED]");
+    }
+
+    @Test
+    public void testDeleteClassWithStudents() {
+
+        boolean isTrue = false;
+
+        try {
+            classService.deleteClass(classIdWithStudent);
+        } catch (KronosException e) {
+            if (e.getMessage().equals("Class cannot be deleted as it has students")) isTrue = true;
+        }
+
+        assertTrue(isTrue);
+
+        System.out.println("[TEST] Attempt to delete class with students [PASSED]");
 
     }
 
