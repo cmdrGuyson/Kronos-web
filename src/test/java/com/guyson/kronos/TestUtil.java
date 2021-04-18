@@ -1,5 +1,6 @@
 package com.guyson.kronos;
 
+import com.guyson.kronos.domain.Lecture;
 import com.guyson.kronos.dto.*;
 import com.guyson.kronos.enums.ClassType;
 import com.guyson.kronos.enums.LecturerType;
@@ -51,6 +52,53 @@ public class TestUtil {
         RoomDto result = roomService.addRoom(dto);
 
         return result.getRoomID();
+    }
+
+    public String createLecturerForExistingEmail() throws KronosException {
+
+        LecturerDto dto = new LecturerDto();
+        dto.setFirstName("First");
+        dto.setLastName("Last");
+        dto.setEmail("createLecturerForExistingEmail@email.com");
+        dto.setType(LecturerType.PERMANENT.getType());
+
+        lecturerService.addLecturer(dto);
+
+        return dto.getEmail();
+    }
+
+    public int createLecturerToBeDeleted() throws KronosException {
+        LecturerDto dto = new LecturerDto();
+        dto.setFirstName("First");
+        dto.setLastName("Last");
+        dto.setEmail("createLecturerToBeDeleted@email.com");
+        dto.setType(LecturerType.PERMANENT.getType());
+
+        LecturerDto result = lecturerService.addLecturer(dto);
+
+        return result.getLecturerID();
+    }
+
+    public int createLecturerWithModule() throws KronosException {
+
+        LecturerDto dto = new LecturerDto();
+        dto.setFirstName("First");
+        dto.setLastName("Last");
+        dto.setEmail("createLecturerWithModule@email.com");
+        dto.setType(LecturerType.PERMANENT.getType());
+
+        LecturerDto result = lecturerService.addLecturer(dto);
+
+        //Add Module
+        ModuleDto moduleDto = new ModuleDto();
+        moduleDto.setLecturerID(result.getLecturerID());
+        moduleDto.setDescription("This is a description");
+        moduleDto.setName("createLecturerWithModule Module");
+
+        moduleService.addModule(moduleDto);
+
+        return result.getLecturerID();
+
     }
 
     public int createRoomWithLectures() throws KronosException {
