@@ -79,6 +79,50 @@ public class TestUtil {
         return result.getLecturerID();
     }
 
+    public int createLecturerForModule() throws KronosException {
+        LecturerDto dto = new LecturerDto();
+        dto.setFirstName("First");
+        dto.setLastName("Last");
+        dto.setEmail("createLecturerForModule@email.com");
+        dto.setType(LecturerType.PERMANENT.getType());
+
+        LecturerDto result = lecturerService.addLecturer(dto);
+
+        return result.getLecturerID();
+    }
+
+    public String createModuleWithSameName() throws KronosException {
+
+        LecturerDto dto = new LecturerDto();
+        dto.setFirstName("First");
+        dto.setLastName("Last");
+        dto.setEmail("createModuleWithSameName@email.com");
+        dto.setType(LecturerType.PERMANENT.getType());
+
+        LecturerDto lecturerDto = lecturerService.addLecturer(dto);
+
+        ModuleDto moduleDto = new ModuleDto();
+        moduleDto.setLecturerID(lecturerDto.getLecturerID());
+        moduleDto.setDescription("This is a description");
+        moduleDto.setName("createModuleWithSameName");
+
+        moduleService.addModule(moduleDto);
+
+        return moduleDto.getName();
+
+    }
+
+    public int createModuleToBeDeleted(int lecturerId) throws KronosException {
+        ModuleDto moduleDto = new ModuleDto();
+        moduleDto.setLecturerID(lecturerId);
+        moduleDto.setDescription("This is a description");
+        moduleDto.setName("createModuleToBeDeleted");
+
+        moduleService.addModule(moduleDto);
+
+        return moduleDto.getModuleID();
+    }
+
     public int createLecturerWithModule() throws KronosException {
 
         LecturerDto dto = new LecturerDto();
