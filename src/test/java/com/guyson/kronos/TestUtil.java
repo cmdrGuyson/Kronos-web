@@ -54,6 +54,35 @@ public class TestUtil {
         return result.getRoomID();
     }
 
+    public int createClassForStudent() {
+        ClassDto dto = new ClassDto();
+        dto.setDescription("This is a test description");
+        dto.setType(ClassType.SOFTWARE_ENGINEERING.getType());
+        ClassDto result = classService.addClass(dto);
+
+        return result.getClassID();
+    }
+
+    public String createStudentToBeDeleted(int classId) throws KronosException {
+        StudentDto dto = new StudentDto();
+        dto.setUsername("createStudentToBeDeleted");
+        dto.setLastName("Last");
+        dto.setFirstName("First");
+        dto.setClassID(classId);
+
+        return studentService.addStudent(dto).getUsername();
+    }
+
+    public String createStudentWithSameUsername(int classId) throws KronosException {
+        StudentDto dto = new StudentDto();
+        dto.setUsername("createStudentWithSameUsername");
+        dto.setLastName("Last");
+        dto.setFirstName("First");
+        dto.setClassID(classId);
+
+        return studentService.addStudent(dto).getUsername();
+    }
+
     public String createLecturerForExistingEmail() throws KronosException {
 
         LecturerDto dto = new LecturerDto();
