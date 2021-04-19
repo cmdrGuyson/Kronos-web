@@ -230,4 +230,66 @@ public class TestUtil {
         return classResult.getClassID();
     }
 
+    public int createModuleForLecture() throws KronosException {
+        //Create lecturer
+        LecturerDto lecturerDto = new LecturerDto();
+        lecturerDto.setType(LecturerType.VISITING.getType());
+        lecturerDto.setEmail("addModuleForLecture@email.com");
+        lecturerDto.setFirstName("First");
+        lecturerDto.setLastName("Last");
+
+        LecturerDto lecturerResult = lecturerService.addLecturer(lecturerDto);
+
+        //Add Module
+        ModuleDto moduleDto = new ModuleDto();
+        moduleDto.setLecturerID(lecturerResult.getLecturerID());
+        moduleDto.setDescription("This is a description");
+        moduleDto.setName("addModuleForLecture Module");
+
+        return moduleService.addModule(moduleDto).getModuleID();
+    }
+
+    public int createRoomForLecture() {
+        RoomDto dto = new RoomDto();
+        dto.setType(RoomType.CLASSROOM.getType());
+        dto.setDescription("This is a test description");
+
+        RoomDto result = roomService.addRoom(dto);
+
+        return result.getRoomID();
+    }
+
+    public int createLectureToBeDeleted(int moduleId, int roomId) throws KronosException {
+        LectureDto lectureDto = new LectureDto();
+        lectureDto.setDuration(3);
+        lectureDto.setStartTime("15:00");
+        lectureDto.setDate("01-04-2021");
+        lectureDto.setModuleID(moduleId);
+        lectureDto.setRoomID(roomId);
+
+        return lectureService.addLecture(lectureDto, false).getLectureID();
+    }
+
+    public LectureDto createLectureToBeUpdated(int moduleId, int roomId) throws KronosException {
+        LectureDto lectureDto = new LectureDto();
+        lectureDto.setDuration(3);
+        lectureDto.setStartTime("15:00");
+        lectureDto.setDate("02-04-2021");
+        lectureDto.setModuleID(moduleId);
+        lectureDto.setRoomID(roomId);
+
+        return lectureService.addLecture(lectureDto, false);
+    }
+
+    public LectureDto createLectureWithOverlappingTime(int moduleId, int roomId) throws KronosException {
+        LectureDto lectureDto = new LectureDto();
+        lectureDto.setDuration(3);
+        lectureDto.setStartTime("15:00");
+        lectureDto.setDate("03-04-2021");
+        lectureDto.setModuleID(moduleId);
+        lectureDto.setRoomID(roomId);
+
+        return lectureService.addLecture(lectureDto, false);
+    }
+
 }

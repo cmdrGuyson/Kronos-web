@@ -103,6 +103,11 @@ public class LectureService {
     }
 
     @Transactional
+    public List<LectureDto> getAllLecturesForTesting() {
+        return lectureRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
+    }
+
+    @Transactional
     public List<LectureDto> getAllLecturesByDay(String day, String sort) throws KronosException {
 
         //User object from security context holder to obtain current user
