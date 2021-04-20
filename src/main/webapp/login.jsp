@@ -53,11 +53,8 @@
                     />
                     <br/>
 
-                    <c:set var="fail" value='<%= request.getParameter("error")%>'/>
-                    <c:if test="${fail == true}">
-                        <p class="errors">Incorrect Username or Password</p>
-                        <br/>
-                    </c:if>
+                    <p class="errors">${error}</p>
+                    <br/>
 
                     <button class="btn btn-md btn-primary btn-primary-login btns-block round-border" type="submit">
                         Login

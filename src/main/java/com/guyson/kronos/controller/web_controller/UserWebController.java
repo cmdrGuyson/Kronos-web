@@ -29,8 +29,12 @@ public class UserWebController {
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
 
     @GetMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView login(String error) {
         ModelAndView mv = new ModelAndView();
+
+        if(error != null) mv.addObject("error", "Invalid login credentials");
+        System.out.println(error);
+
         mv.setViewName("login.jsp");
         return mv;
     }
