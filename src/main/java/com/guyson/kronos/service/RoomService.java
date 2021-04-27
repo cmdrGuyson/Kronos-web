@@ -20,7 +20,6 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final LectureRepository lectureRepository;
 
-    @Transactional
     public RoomDto addRoom(RoomDto dto) {
 
         Room room = roomRepository.save(map(dto));
@@ -41,7 +40,6 @@ public class RoomService {
 
     }
 
-    @Transactional
     public List<RoomDto> getAllRooms() {
         return roomRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
     }

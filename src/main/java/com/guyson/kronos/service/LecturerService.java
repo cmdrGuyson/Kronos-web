@@ -41,7 +41,6 @@ public class LecturerService {
         return dto;
     }
 
-    @Transactional
     public List<LecturerDto> getAllLecturers() {
         return lecturerRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
     }

@@ -15,6 +15,9 @@ public class CustomErrorController implements ErrorController {
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
+        String url = (String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
+        System.out.println(url);
+
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
 
@@ -27,7 +30,6 @@ public class CustomErrorController implements ErrorController {
                 return "errors/500_error.jsp";
             }
             else if(statusCode == HttpStatus.METHOD_NOT_ALLOWED.value() || statusCode == HttpStatus.FORBIDDEN.value()) {
-                System.out.println("here");
                 return "redirect:/";
             }
         }

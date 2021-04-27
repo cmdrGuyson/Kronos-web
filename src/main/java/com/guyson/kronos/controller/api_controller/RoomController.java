@@ -33,7 +33,7 @@ public class RoomController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/rooms")
-    public ResponseEntity<List<RoomDto>> getAllClasses() {
+    public ResponseEntity<List<RoomDto>> getAllRooms() {
         return new ResponseEntity<>(roomService.getAllRooms(), HttpStatus.OK);
     }
 

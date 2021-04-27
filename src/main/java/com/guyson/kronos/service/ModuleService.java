@@ -53,7 +53,6 @@ public class ModuleService {
 
     }
 
-    @Transactional
     public List<ModuleDto> getAllModules() {
         return moduleRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
     }

@@ -51,12 +51,10 @@ public class StudentService {
         return dto;
     }
 
-    @Transactional
     public List<StudentDto> getAllStudents() {
         return userRepository.findByRoleEquals("student").stream().map(this::mapDto).collect(Collectors.toList());
     }
 
-    @Transactional
     public List<StudentDto> getAllRecentStudents() {
         List<StudentDto> list = userRepository.findByRoleOrderByCreatedAtDesc("student").stream().map(this::mapDto).collect(Collectors.toList());
         List<StudentDto> recent = new ArrayList<>();
@@ -85,7 +83,6 @@ public class StudentService {
 
     }
 
-    @Transactional
     public String getName() throws KronosException {
         //User object from security context holder to obtain current user
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

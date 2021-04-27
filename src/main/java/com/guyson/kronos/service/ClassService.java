@@ -21,7 +21,6 @@ public class ClassService {
     private final ClassRepository classRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     public ClassDto addClass(ClassDto dto) {
 
         Class _class = classRepository.save(map(dto));
@@ -29,13 +28,6 @@ public class ClassService {
         return dto;
     }
 
-    @Transactional
-    public ClassDto getClass(Integer id) throws KronosException {
-        Class _class = classRepository.findById(id).orElseThrow(() -> new KronosException("Class not found"));
-        return mapDto(_class);
-    }
-
-    @Transactional
     public List<ClassDto> getAllClasses() {
         return classRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
     }

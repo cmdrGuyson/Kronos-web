@@ -66,7 +66,7 @@ public class ClassWebController {
 
     @PostMapping("/delete-class")
     @PreAuthorize("hasRole('ADMIN')")
-    public ModelAndView addClass(@RequestParam String classID) {
+    public ModelAndView deleteClass(@RequestParam String classID) {
 
         ModelAndView mv = getClasses();
         try {

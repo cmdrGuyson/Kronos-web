@@ -102,7 +102,6 @@ public class LectureService {
         }
     }
 
-    @Transactional
     public List<LectureDto> getAllLecturesForTesting() {
         return lectureRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
     }
