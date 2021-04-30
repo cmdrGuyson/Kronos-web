@@ -13,6 +13,10 @@
 </head>
 <body class="body-login">
 <div class="container" style="padding-left: 300px; padding-right: 300px;">
+
+    <%@ include file="util/error_alert.jsp" %>
+    <%@ include file="util/success_alert.jsp" %>
+
     <div class="card align-self-center login-card" style="margin-top: 70px; width: 80%;">
         <div class="c   ard-body" style="padding: 50px;">
             <div style="text-align: center;">
@@ -26,7 +30,7 @@
                     Kronos
                 </h1>
             </div>
-            <form class="form-signin" method="POST">
+            <form class="form-signin" method="POST" action="/login">
                 <br/>
                 <div class="text-center">
                     <label for="inputUsername" class="sr-only">Username</label>
@@ -62,7 +66,7 @@
                     <p class="mt-5 mb-3 text-muted remember">
                         Don't remember password?
                     </p>
-                    <a href="#" style="color: #32bea6;">Please contact Administrator!</a>
+                    <a href="/contact" style="color: #32bea6;" data-toggle="modal" data-target="#contactModal">Please contact Administrator!</a>
                 </div>
             </form>
 
@@ -70,6 +74,7 @@
     </div>
 </div>
 
+<%@ include file="modals/send_email.jsp" %>
 <%@ include file="util/script_imports.jsp" %>
 </body>
 </html>

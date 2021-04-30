@@ -7,12 +7,14 @@ import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.AuthService;
 import com.guyson.kronos.service.LectureService;
 import com.guyson.kronos.service.StudentService;
+import com.guyson.kronos.util.EmailService;
 import com.guyson.kronos.util.ExtraUtilities;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
@@ -26,6 +28,7 @@ public class UserWebController {
     private final StudentService studentService;
     private final LectureService lectureService;
     private final AuthService authService;
+    private final EmailService emailService;
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy").withZone(ZoneId.systemDefault());
 
     @GetMapping("/login")
@@ -80,7 +83,7 @@ public class UserWebController {
         //Check if user is an administrator
         boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
 
-        mv.setViewName("/home-student.jsp");
+        mv.setViewName("/home_student.jsp");
 
         if(isAdmin) {
             mv.setViewName("/home_admin.jsp");
@@ -109,5 +112,18 @@ public class UserWebController {
         }
 
         return mv;
+    }
+
+    @PostMapping("/contact")
+    public ModelAndView contact(@RequestParam String email, @RequestParam String body) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/login.jsp");
+
+        System.out.println("posted");
+
+       emailService.sendSimpleMessage(email, body);
+
+       mv.addObject("success", new SimpleMessageDto("Successfully sent email!"));
+       return mv;
     }
 }
