@@ -41,5 +41,4 @@ public class RestLoggerInterceptor implements HandlerInterceptor {
         return true;
     }
 
-
 }

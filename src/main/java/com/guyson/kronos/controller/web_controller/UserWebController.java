@@ -7,7 +7,7 @@ import com.guyson.kronos.exception.KronosException;
 import com.guyson.kronos.service.AuthService;
 import com.guyson.kronos.service.LectureService;
 import com.guyson.kronos.service.StudentService;
-import com.guyson.kronos.util.EmailService;
+import com.guyson.kronos.service.EmailService;
 import com.guyson.kronos.util.ExtraUtilities;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

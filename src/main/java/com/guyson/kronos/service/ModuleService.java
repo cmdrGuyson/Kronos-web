@@ -42,6 +42,9 @@ public class ModuleService {
         //Find lecturer associated with new module or give exception
         Lecturer lecturer = lecturerRepository.findById(dto.getLecturerID()).orElseThrow(()->new KronosException("Lecturer not found"));
 
+        //Validate credit amount
+        if (dto.getCredits()<0 || dto.getCredits()>50) throw new KronosException("Invalid credit amount");
+
         Module module = map(dto, lecturer);
 
         moduleRepository.save(module);

@@ -1,4 +1,4 @@
-package com.guyson.kronos.util;
+package com.guyson.kronos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

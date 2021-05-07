@@ -2,6 +2,7 @@ package com.guyson.kronos.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +27,7 @@ public class Module {
     private String description;
 
     @NotNull(message = "Credits is required")
+    @Range(min= 0, max= 50)
     private int credits;
 
     @NotEmpty(message = "Name is required")

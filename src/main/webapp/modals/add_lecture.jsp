@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="inputDuration">Duration</label>
-                                    <input type="number" class="form-control select-filter" id="inputDuration" name="duration" required>
+                                    <input type="number" min="1" step="1" max="10" class="form-control select-filter" id="inputDuration" name="duration" required>
                                 </div>
                             </div>
                             <div class="form-row form-row-modal">

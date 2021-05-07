@@ -2,6 +2,7 @@ package com.guyson.kronos.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class Lecture {
     private LocalTime startTime;
 
     @NotNull(message = "Duration is required")
+    @Range(min= 1, max= 10)
     private int duration;
 
     @NotNull(message = "Room is required")

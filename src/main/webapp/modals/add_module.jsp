@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="inputCredits">Credits</label>
-                                    <input type="number" class="form-control select-filter" id="inputCredits" name="credits" required>
+                                    <input type="number" min="1" step="1" max="50" class="form-control select-filter" id="inputCredits" name="credits" required>
                                 </div>
                             </div>
                             <div class="form-row form-row-modal">
