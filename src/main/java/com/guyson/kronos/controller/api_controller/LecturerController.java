@@ -22,7 +22,7 @@ public class LecturerController {
 
     private final LecturerService lecturerService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @PostMapping("/lecturer")
     public ResponseEntity<Object> addLecturer(@RequestBody LecturerDto dto) {
         LecturerDto result = null;
@@ -35,13 +35,13 @@ public class LecturerController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @GetMapping("/lecturers")
     public ResponseEntity<List<LecturerDto>> getAllLecturers() {
         return new ResponseEntity<>(lecturerService.getAllLecturers(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @DeleteMapping("/lecturer/{lecturerID}")
     public ResponseEntity<Object> deleteLecturer(@PathVariable int lecturerID) {
         try{

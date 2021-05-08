@@ -41,10 +41,10 @@ public class LectureService {
         Room room = roomRepository.findById(dto.getRoomID()).orElseThrow(() -> new KronosException("Room not found"));
         Module module = moduleRepository.findById(dto.getModuleID()).orElseThrow(() -> new KronosException("Module not found"));
 
-        Lecture lecture = map(dto, module, room);
-
         //Longer duration
         if (dto.getDuration() > 10) throw new KronosException("Duration is too long");
+
+        Lecture lecture = map(dto, module, room);
 
         //Find any overlaps with existing lectures from the same module
         List<Lecture> list_byModule = lectureRepository.findAllByModuleAndDate(lecture.getModule(), lecture.getDate());

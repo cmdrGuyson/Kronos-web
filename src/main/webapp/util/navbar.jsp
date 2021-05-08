@@ -8,12 +8,19 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link ${param.page == "home" ? "active" : null}" href="/">Home</a>
-                    <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="/lectures">Lectures</a>
                     <a class="nav-item nav-link ${param.page == "students" ? "active" : null}" href="/students">Students</a>
-                    <a class="nav-item nav-link ${param.page == "lecturers" ? "active" : null}" href="/lecturers">Lecturers</a>
-                    <a class="nav-item nav-link ${param.page == "modules" ? "active" : null}" href="/modules">Modules</a>
                     <a class="nav-item nav-link ${param.page == "classes" ? "active" : null}" href="/classes">Classes</a>
                     <a class="nav-item nav-link ${param.page == "rooms" ? "active" : null}" href="/rooms">Rooms</a>
+                </div>
+            </div>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link ${param.page == "home" ? "active" : null}" href="/">Home</a>
+                    <a class="nav-item nav-link ${param.page == "lectures" ? "active" : null}" href="/lectures">Lectures</a>
+                    <a class="nav-item nav-link ${param.page == "lecturers" ? "active" : null}" href="/lecturers">Lecturers</a>
+                    <a class="nav-item nav-link ${param.page == "modules" ? "active" : null}" href="/modules">Modules</a>
                 </div>
             </div>
         </sec:authorize>

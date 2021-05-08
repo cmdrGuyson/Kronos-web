@@ -25,7 +25,7 @@
         <jsp:param name="page" value="${myModules == null ? 'Manage Enrollments' : 'My Modules'}" />
     </jsp:include>
 </sec:authorize>
-<sec:authorize access="hasRole('ADMIN')">
+<sec:authorize access="hasRole('ACADEMIC_ADMIN')">
     <jsp:include page="util/carousel.jsp" >
         <jsp:param name="page" value="Manage Modules" />
     </jsp:include>

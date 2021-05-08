@@ -11,15 +11,16 @@ public class FacadeController {
 
     //Facade to direct user type to respective controller to load home page
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN', 'ACADEMIC_ADMIN')")
     public ModelAndView sendUserHome() {
 
         //Check if user is an administrator
         boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
+        boolean isAcademicAdmin = ExtraUtilities.hasRole("ROLE_ACADEMIC_ADMIN");
 
         ModelAndView mv = new ModelAndView();
 
-        if(isAdmin) {
+        if(isAdmin || isAcademicAdmin) {
             mv.setViewName("redirect:/home-admin");
         }else{
             mv.setViewName("redirect:/home-student");
@@ -30,11 +31,11 @@ public class FacadeController {
 
     //Facade to direct user type to respective controller to load modules page
     @GetMapping("/modules")
-    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ACADEMIC_ADMIN')")
     public ModelAndView sendToModules() {
 
         //Check if user is an administrator
-        boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
+        boolean isAdmin = ExtraUtilities.hasRole("ROLE_ACADEMIC_ADMIN");
 
         ModelAndView mv = new ModelAndView();
 

@@ -43,7 +43,7 @@ public class UserWebController {
     }
 
     @GetMapping("/home-admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_ADMIN')")
     public ModelAndView homeAdmin() {
 
         ModelAndView mv = new ModelAndView();
@@ -76,16 +76,17 @@ public class UserWebController {
     }
 
     @PostMapping("/change-password")
-    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN', 'ACADEMIC_ADMIN')")
     public ModelAndView changePassword(ChangePasswordRequest dto) {
         ModelAndView mv = new ModelAndView();
 
         //Check if user is an administrator
         boolean isAdmin = ExtraUtilities.hasRole("ROLE_ADMIN");
+        boolean isAcademicAdmin = ExtraUtilities.hasRole("ROLE_ACADEMIC_ADMIN");
 
         mv.setViewName("/home_student.jsp");
 
-        if(isAdmin) {
+        if(isAdmin || isAcademicAdmin) {
             mv.setViewName("/home_admin.jsp");
             mv.addObject("recent_students", studentService.getAllRecentStudents());
         }else {

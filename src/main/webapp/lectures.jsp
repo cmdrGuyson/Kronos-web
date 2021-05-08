@@ -27,7 +27,7 @@
         <jsp:param name="page" value="My Lectures" />
     </jsp:include>
 </sec:authorize>
-<sec:authorize access="hasRole('ADMIN')">
+<sec:authorize access="hasRole('ACADEMIC_ADMIN')">
     <jsp:include page="util/carousel.jsp" >
         <jsp:param name="page" value="Manage Lectures" />
     </jsp:include>

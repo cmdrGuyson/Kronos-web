@@ -20,7 +20,7 @@ public class LectureController {
 
     private final LectureService lectureService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @PostMapping("/lecture")
     public ResponseEntity<Object> addLecture(@RequestBody LectureDto dto) {
         try {
@@ -31,7 +31,7 @@ public class LectureController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ACADEMIC_ADMIN')")
     @GetMapping("/lectures")
     public ResponseEntity<Object> getAllLectures() {
         try {
@@ -41,7 +41,7 @@ public class LectureController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ACADEMIC_ADMIN')")
     @GetMapping("/lectures/{date}")
     public ResponseEntity<Object> getAllLecturesByDay(@PathVariable String date) {
         try {
@@ -51,7 +51,7 @@ public class LectureController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @PutMapping("/lecture/{lectureID}")
     public ResponseEntity<Object> updateLecture(@RequestBody LectureDto dto, @PathVariable int lectureID) {
         try {
@@ -63,7 +63,7 @@ public class LectureController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @DeleteMapping("/lecture/{lectureID}")
     public ResponseEntity<Object> deleteLecture(@PathVariable int lectureID) {
         try{

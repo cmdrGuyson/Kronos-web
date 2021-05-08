@@ -24,7 +24,7 @@ public class LecturerWebController {
     private final LecturerService lecturerService;
 
     @GetMapping("/lecturers")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView viewAllLecturers() {
         return getLecturers();
     }
@@ -45,7 +45,7 @@ public class LecturerWebController {
     }
 
     @PostMapping("/add-lecturer")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView addLecturer(@RequestParam String type, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email) {
 
         ModelAndView mv = getLecturers();
@@ -70,7 +70,7 @@ public class LecturerWebController {
     }
 
     @PostMapping("/delete-lecturer")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView deleteLecturer(@RequestParam("lecturerID") String lecturerID) {
 
         ModelAndView mv = getLecturers();

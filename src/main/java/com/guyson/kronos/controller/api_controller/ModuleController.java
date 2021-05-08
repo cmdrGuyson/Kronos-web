@@ -24,7 +24,7 @@ public class ModuleController {
 
     private final ModuleService moduleService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @PostMapping("/module")
     public ResponseEntity<Object> addModule(@RequestBody ModuleDto dto) {
 
@@ -38,7 +38,7 @@ public class ModuleController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @GetMapping("/modules")
     public ResponseEntity<List<ModuleDto>> getAllModules() {
         return new ResponseEntity<>(moduleService.getAllModules(), HttpStatus.OK);

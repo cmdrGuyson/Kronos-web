@@ -64,13 +64,13 @@ public class LectureWebController {
     }
 
     @GetMapping("/lectures")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
     public ModelAndView viewTodaysLectures() {
         return getToday(null);
     }
 
     @PostMapping("/filter-lectures")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
     public ModelAndView filterLectures(FilterLectureDto dto) {
 
         ModelAndView mv = new ModelAndView();
@@ -94,7 +94,7 @@ public class LectureWebController {
     }
 
     @PostMapping("/add-lecture")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView addLecture(@RequestParam String date, @RequestParam String moduleID, @RequestParam String roomID, @RequestParam String startTime, @RequestParam String duration) {
 
         ModelAndView mv = getToday(null);
@@ -122,7 +122,7 @@ public class LectureWebController {
     }
 
     @PostMapping("/update-lecture")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView updateLecture(@RequestParam String date, @RequestParam String moduleID, @RequestParam String roomID, @RequestParam String startTime, @RequestParam String duration, @RequestParam String lectureID) {
 
         ModelAndView mv = getToday(null);
@@ -151,7 +151,7 @@ public class LectureWebController {
     }
 
     @PostMapping("/delete-lecture")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView deleteLecture(@RequestParam("lectureID") int lectureID) {
 
         ModelAndView mv = getToday(null);

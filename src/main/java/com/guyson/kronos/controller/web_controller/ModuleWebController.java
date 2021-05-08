@@ -23,7 +23,7 @@ public class ModuleWebController {
     private final LecturerService lecturerService;
 
     @GetMapping("/all-modules")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
     public ModelAndView viewAllModules() {
         return getModules();
     }
@@ -37,7 +37,7 @@ public class ModuleWebController {
     }
 
     @GetMapping("/student-modules")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
     public ModelAndView viewStudentModules() {
         ModelAndView mv = new ModelAndView();
 
@@ -98,13 +98,13 @@ public class ModuleWebController {
     }
 
     @GetMapping("/my-modules")
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
     public ModelAndView viewMyModules() {
         return getMyModules();
     }
 
     @PostMapping("/add-module")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView addModule(@RequestParam String lecturerID, @RequestParam String name, @RequestParam String description, @RequestParam String credits) {
 
         ModelAndView mv = getModules();
@@ -129,7 +129,7 @@ public class ModuleWebController {
     }
 
     @PostMapping("/delete-module")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     public ModelAndView deleteModule(@RequestParam("moduleID") int moduleID) {
 
         ModelAndView mv = getModules();
