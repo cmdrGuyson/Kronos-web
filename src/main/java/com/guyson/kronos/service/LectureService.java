@@ -92,7 +92,7 @@ public class LectureService {
         com.guyson.kronos.domain.User _user = userRepository.findById(user.getUsername()).orElseThrow(()->new KronosException("User not found"));
 
         //If user is an admin return lectures of all modules
-        if(_user.getRole().equals("admin")) {
+        if(_user.getRole().equals("academic_admin")) {
             return lectureRepository.findAll().stream().map(this::mapDto).collect(Collectors.toList());
         }
         //If user is a student return lectures of enrolled modules
@@ -135,7 +135,7 @@ public class LectureService {
         }
 
         //If user is an admin return lectures of all modules
-        if(_user.getRole().equals("admin")) {
+        if(_user.getRole().equals("academic_admin")) {
 
             //Get lectures and sort by time
             List<Lecture> lectures = context.sortLectures(lectureRepository.findAllByDate(date));

@@ -31,7 +31,7 @@ public class RoomController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_ADMIN')")
     @GetMapping("/rooms")
     public ResponseEntity<List<RoomDto>> getAllRooms() {
         return new ResponseEntity<>(roomService.getAllRooms(), HttpStatus.OK);

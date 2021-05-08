@@ -66,7 +66,7 @@
     <div class="card recent-students lectures-card">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">Lectures for ${day}</h4>
-            <sec:authorize access="hasRole('ADMIN')">
+            <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                 <a type="button" class="btn btn-outline-info btn-in-add" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle btn-icon"></i>Add Lecture</a>
             </sec:authorize>
         </div>
@@ -91,7 +91,7 @@
         <table id="example" class="table table-striped table-bordered recent-students-table" style="width:100%">
             <thead>
             <tr>
-                <sec:authorize access="hasRole('ADMIN')">
+                <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                     <th>ID</th>
                 </sec:authorize>
                 <th>Module</th>
@@ -99,7 +99,7 @@
                 <th>Duration</th>
                 <th>Room</th>
                 <th>Lecturer</th>
-                <sec:authorize access="hasRole('ADMIN')">
+                <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                     <th>Action</th>
                 </sec:authorize>
             </tr>
@@ -111,7 +111,7 @@
                 </c:url>
                 <tr>
 
-                    <sec:authorize access="hasRole('ADMIN')">
+                    <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                         <td>${lecture.getLectureID()}</td>
                     </sec:authorize>
                     <td>${lecture.getModule().getName()}</td>
@@ -119,7 +119,7 @@
                     <td>${lecture.getDuration()} ${lecture.getDuration() == "1" ? "hour" : "hours"}</td>
                     <td>${lecture.getRoom().getType()}-${lecture.getRoom().getRoomID()}</td>
                     <td>${lecture.getModule().getLecturer().getFirstName()} ${lecture.getModule().getLecturer().getLastName()}</td>
-                    <sec:authorize access="hasRole('ADMIN')">
+                    <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                         <td class="action-td">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" title="Edit lecture" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#editModal${lecture.getLectureID()}">

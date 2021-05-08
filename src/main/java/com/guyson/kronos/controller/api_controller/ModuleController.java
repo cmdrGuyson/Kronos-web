@@ -100,7 +100,7 @@ public class ModuleController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ACADEMIC_ADMIN')")
     @DeleteMapping("/module/{moduleID}")
     public ResponseEntity<Object> deleteModule(@PathVariable int moduleID) {
         try{

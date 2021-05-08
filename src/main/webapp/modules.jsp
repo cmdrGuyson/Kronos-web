@@ -41,7 +41,7 @@
     <div class="card recent-students card-filter">
         <div class="title-add">
             <h4 class="recent-students-title title-in-add">${myModules == null ? 'All Modules' : 'My Modules'}</h4>
-            <sec:authorize access="hasRole('ADMIN')">
+            <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                 <a type="button" class="btn btn-outline-info btn-in-add" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-circle btn-icon"></i>Add Module</a>
             </sec:authorize>
         </div>
@@ -70,7 +70,7 @@
                     <td>${module.getDescription()}</td>
                     <td>${module.getLecturer().getFirstName()} ${module.getLecturer().getLastName()}</td>
 
-                        <sec:authorize access="hasRole('ADMIN')">
+                        <sec:authorize access="hasRole('ACADEMIC_ADMIN')">
                             <td class="action-td">
                                 <a type="button" title="Delete module" class="btn btn-outline-secondary btn-delete" data-toggle="modal" data-target="#deleteModuleModal" onclick="change(${module.getModuleID()})">
                                     <i class="fas fa-trash-alt"></i>

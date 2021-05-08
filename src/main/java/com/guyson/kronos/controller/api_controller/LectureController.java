@@ -35,6 +35,7 @@ public class LectureController {
     @GetMapping("/lectures")
     public ResponseEntity<Object> getAllLectures() {
         try {
+            System.out.println(lectureService.getAllLectures().size());
             return new ResponseEntity<>(lectureService.getAllLectures(), HttpStatus.OK);
         } catch (KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
