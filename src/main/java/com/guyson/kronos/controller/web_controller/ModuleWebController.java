@@ -98,7 +98,7 @@ public class ModuleWebController {
     }
 
     @GetMapping("/my-modules")
-    @PreAuthorize("hasAnyRole('ACADEMIC_ADMIN', 'STUDENT')")
+    @PreAuthorize("hasRole('STUDENT')")
     public ModelAndView viewMyModules() {
         return getMyModules();
     }

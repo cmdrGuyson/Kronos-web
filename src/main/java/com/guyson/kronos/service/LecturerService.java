@@ -35,6 +35,7 @@ public class LecturerService {
         //Validate email
         if(!ExtraUtilities.isEmailValid(dto.getEmail())) throw new KronosException("Invalid Email");
 
+        //Save new lecturer after mapping dto to entity class
         Lecturer lecturer = lecturerRepository.save(map(dto));
 
         dto.setLecturerID(lecturer.getLecturerID());

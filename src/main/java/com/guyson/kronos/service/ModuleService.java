@@ -38,8 +38,7 @@ public class ModuleService {
             throw new KronosException("Module already exists");
         }
 
-
-        //Find lecturer associated with new module or give exception
+        //Find lecturer associated with new module or give exception if not found
         Lecturer lecturer = lecturerRepository.findById(dto.getLecturerID()).orElseThrow(()->new KronosException("Lecturer not found"));
 
         //Validate credit amount
@@ -75,7 +74,6 @@ public class ModuleService {
 
         //Update in database
         userRepository.save(student);
-
     }
 
     @Transactional
