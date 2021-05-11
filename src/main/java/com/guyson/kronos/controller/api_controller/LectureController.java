@@ -58,7 +58,7 @@ public class LectureController {
         try {
             dto.setLectureID(lectureID);
             LectureDto result = lectureService.addLecture(dto, true);
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (KronosException e) {
             return new ResponseEntity<>(new APIException(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
