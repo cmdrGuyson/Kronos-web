@@ -28,6 +28,7 @@ public class ModuleWebController {
         return getModules();
     }
 
+    // Reusable function to get all modules as ModelAndView
     private ModelAndView getModules() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("modules.jsp");
@@ -50,6 +51,7 @@ public class ModuleWebController {
         return mv;
     }
 
+    // Reusable function to get all modules of logged in student as ModelAndView
     private ModelAndView getMyModules() {
         ModelAndView mv = new ModelAndView();
 
@@ -70,6 +72,8 @@ public class ModuleWebController {
       ModelAndView mv = getMyModules();
 
       try {
+
+          // Enroll in module and return user to "Modules" page
           moduleService.enroll(Integer.parseInt(moduleID));
           mv = getMyModules();
           mv.addObject("success", new SimpleMessageDto("Successfully enrolled in module!"));
@@ -87,6 +91,8 @@ public class ModuleWebController {
         ModelAndView mv = getMyModules();
 
         try {
+
+            // Enroll from module and return user to "Modules" page
             moduleService.unroll(Integer.parseInt(moduleID));
             mv = getMyModules();
             mv.addObject("success", new SimpleMessageDto("Successfully unrolled from module!"));
@@ -111,12 +117,14 @@ public class ModuleWebController {
 
         try {
 
+            // Create Module dto from user input
             ModuleDto dto = new ModuleDto();
             dto.setCredits(Integer.parseInt(credits));
             dto.setName(name);
             dto.setDescription(description);
             dto.setLecturerID(Integer.parseInt(lecturerID));
 
+            // Add module and return user to "Modules" page
             moduleService.addModule(dto);
             mv = getModules();
             mv.addObject("success", new SimpleMessageDto("Module added successfully!"));
@@ -136,6 +144,7 @@ public class ModuleWebController {
 
         try {
 
+            // Delete module and return user to "Modules" page
             moduleService.deleteModule(moduleID);
             mv = getModules();
             mv.addObject("success", new SimpleMessageDto("Module deleted successfully!"));

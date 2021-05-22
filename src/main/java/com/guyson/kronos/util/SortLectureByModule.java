@@ -9,6 +9,8 @@ import java.util.List;
 public class SortLectureByModule implements SortLectureStrategy {
     @Override
     public List<Lecture> sort(List<Lecture> lectures) {
+
+        // Compare lectures by module name and sort in ascending order
         lectures.sort(Comparator.comparing(a -> a.getModule().getName()));
 
         return lectures;

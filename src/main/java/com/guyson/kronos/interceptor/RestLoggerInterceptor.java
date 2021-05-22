@@ -25,6 +25,7 @@ public class RestLoggerInterceptor implements HandlerInterceptor {
 
         String requestIP = ExtraUtilities.getRemoteAddr(request);
 
+        //Check if user's ip is blacklisted
         if(blacklistedIps.contains(requestIP)) {
 
             String statement = String.format("[PREVENTING REST REQUEST FROM BLACKLISTED IP] [%s] [%s] [%s]", request.getRequestURI(), request.getMethod(), requestIP);

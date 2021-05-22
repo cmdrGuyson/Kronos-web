@@ -45,6 +45,7 @@ public class UserWebController {
     @GetMapping("/home-admin")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_ADMIN')")
     public ModelAndView homeAdmin() {
+        // Direct admins to their home page. Recently joined students are displayed
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home_admin.jsp");
@@ -60,6 +61,8 @@ public class UserWebController {
     @GetMapping("/home-student")
     @PreAuthorize("hasRole('STUDENT')")
     public ModelAndView homeStudent() {
+        //Direct student to their home page. Lectures of enrolled modules for present day is displayed
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home_student.jsp");
 
@@ -86,6 +89,7 @@ public class UserWebController {
 
         mv.setViewName("/home_student.jsp");
 
+        //Setup ModelAndView to return user to correct gome page
         if(isAdmin || isAcademicAdmin) {
             mv.setViewName("/home_admin.jsp");
             mv.addObject("recent_students", studentService.getAllRecentStudents());
@@ -100,6 +104,7 @@ public class UserWebController {
         }
 
         try {
+            //Change password and set success message
             authService.changePassword(dto);
             mv.addObject("successSetting", new SimpleMessageDto("Successfully changed password!"));
         }catch(KronosException e) {
@@ -122,9 +127,11 @@ public class UserWebController {
 
         System.out.println("posted");
 
-       emailService.sendSimpleMessage(email, body);
+        //Handle sending email using service
+        emailService.sendSimpleMessage(email, body);
 
-       mv.addObject("success", new SimpleMessageDto("Successfully sent email!"));
-       return mv;
+        // Set success message
+        mv.addObject("success", new SimpleMessageDto("Successfully sent email!"));
+        return mv;
     }
 }

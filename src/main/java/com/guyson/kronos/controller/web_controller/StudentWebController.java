@@ -27,10 +27,13 @@ public class StudentWebController {
         return getStudents();
     }
 
+    // Reusable function to get all students in system as ModelAndView
     private ModelAndView getStudents() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("students.jsp");
         mv.addObject("students", studentService.getAllStudents());
+
+        // Get list of classes available for "Add student" modal
         mv.addObject("classes", classService.getAllClasses());
         return mv;
     }
@@ -42,13 +45,15 @@ public class StudentWebController {
         ModelAndView mv = getStudents();
 
         try {
+
+            // Create Student dto with user input
             StudentDto dto = new StudentDto();
             dto.setUsername(username);
             dto.setFirstName(firstName);
             dto.setLastName(lastName);
             dto.setClassID(Integer.parseInt(classID));
 
-
+            // Add student and send return user to "Students" page
             studentService.addStudent(dto);
             mv = getStudents();
             mv.addObject("success", new SimpleMessageDto("Student added successfully!"));
@@ -68,6 +73,7 @@ public class StudentWebController {
 
         try {
 
+            // Delete student and send return user to "Students" page
             studentService.deleteStudent(username);
             mv = getStudents();
             mv.addObject("success", new SimpleMessageDto("Student deleted successfully!"));

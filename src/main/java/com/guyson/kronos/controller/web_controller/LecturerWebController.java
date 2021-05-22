@@ -29,12 +29,14 @@ public class LecturerWebController {
         return getLecturers();
     }
 
+    //Reusable function to get ModelAndView with all lecturers in system
     private ModelAndView getLecturers() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("lecturers.jsp");
 
         List<String> types = new ArrayList<>();
 
+        // All lecturer types to be displayed in "Add Lecturer" modal
         for (LecturerType lecturerType : LecturerType.values()) {
             types.add(lecturerType.getType());
         }
@@ -51,6 +53,8 @@ public class LecturerWebController {
         ModelAndView mv = getLecturers();
 
         try {
+
+            // Create lecturer dto with user input
             LecturerDto dto = new LecturerDto();
             dto.setType(type);
             dto.setFirstName(firstName);
@@ -59,6 +63,8 @@ public class LecturerWebController {
 
 
             lecturerService.addLecturer(dto);
+
+            //Return user to "Lecturers" page
             mv = getLecturers();
             mv.addObject("success", new SimpleMessageDto("Lecturer added successfully!"));
 
@@ -78,6 +84,8 @@ public class LecturerWebController {
         try {
 
             lecturerService.deleteLecturer(Integer.parseInt(lecturerID));
+
+            //Return user to "Lecturers" page
             mv = getLecturers();
             mv.addObject("success", new SimpleMessageDto("Lecturer deleted successfully!"));
 

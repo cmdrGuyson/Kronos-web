@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        /* Only intercepts RESTful API requests */
         registry.addInterceptor(new RestLoggerInterceptor()).addPathPatterns("/api/**");
     }
 }

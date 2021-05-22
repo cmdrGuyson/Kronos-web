@@ -31,12 +31,14 @@ public class RoomWebController {
         return getRooms();
     }
 
+    // Reusable function to get all rooms in system as ModelAndView
     private ModelAndView getRooms() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("rooms.jsp");
 
         List<String> types = new ArrayList<>();
 
+        // Get list of room types available for "Add room" modal
         for (RoomType roomType : RoomType.values()) {
             types.add(roomType.getType());
         }
@@ -51,11 +53,12 @@ public class RoomWebController {
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView addRoom(@RequestParam String type, @RequestParam String description) {
 
-
+        // Create Room dto from user input
         RoomDto dto = new RoomDto();
         dto.setType(type);
         dto.setDescription(description);
 
+        // Add room and return user to "Rooms" page
         roomService.addRoom(dto);
         ModelAndView mv = getRooms();
         mv.addObject("success", new SimpleMessageDto("Room added successfully!"));
@@ -69,6 +72,8 @@ public class RoomWebController {
 
         ModelAndView mv = getRooms();
         try {
+
+            // Delete room and return user to rooms page
             roomService.deleteRoom(Integer.parseInt(roomID));
             mv = getRooms();
             mv.addObject("success", new SimpleMessageDto("Room deleted successfully!"));

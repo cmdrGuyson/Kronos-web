@@ -35,6 +35,7 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
 
+        // Find user from system or return error
         User user = userRepository.findById(request.getUsername()).orElseThrow(()->new KronosException("User not found!"));
 
         return new AuthResponse(token, request.getUsername(), user.getRole());

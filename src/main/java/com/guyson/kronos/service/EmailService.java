@@ -19,6 +19,8 @@ public class EmailService {
 
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+
+        // Body of email. In HTML format including CSS
         String htmlMsg = "<html>\n" +
                 "  <head>\n" +
                 "    <style>\n" +
@@ -67,6 +69,8 @@ public class EmailService {
                 "  </body>\n" +
                 "</html>";
         try {
+
+            // Set other attributes
             helper.setText(htmlMsg, true); // Use this or above line.
             helper.setTo("bangercorental@gmail.com");
             helper.setSubject("Kronos Contact-us");
@@ -75,7 +79,7 @@ public class EmailService {
             e.printStackTrace();
         }
 
-
+        // Send email
         emailSender.send(mimeMessage);
     }
 }

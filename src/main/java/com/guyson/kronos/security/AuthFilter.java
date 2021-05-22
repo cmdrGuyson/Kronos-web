@@ -29,8 +29,10 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        //Get bearer token
         String token = getTokenFromRequest(request);
 
+        //Validate the token
         if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
             String username = jwtProvider.getUsernameFromToken(token);
 
@@ -39,12 +41,14 @@ public class AuthFilter extends OncePerRequestFilter {
                     null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+            // Set UsernamePasswordAuthenticationToken object
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         chain.doFilter(request, response);
 
     }
 
+    //Utility function to get token from request
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearer_token = request.getHeader("Authorization");
 

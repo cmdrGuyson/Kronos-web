@@ -32,6 +32,7 @@ public class ClassWebController {
         return getClasses();
     }
 
+    //Reusable function to get ModelAndView with all classes in system
     private ModelAndView getClasses() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("classes.jsp");
@@ -39,6 +40,7 @@ public class ClassWebController {
 
         List<String> types = new ArrayList<>();
 
+        // All class types to be displayed in "Add Class" modal
         for (ClassType classType : ClassType.values()) {
             types.add(classType.getType());
         }
@@ -52,12 +54,14 @@ public class ClassWebController {
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView addClass(@RequestParam String type, @RequestParam String description) {
 
-
+        // Create class dto with user input
         ClassDto dto = new ClassDto();
         dto.setType(type);
         dto.setDescription(description);
 
         classService.addClass(dto);
+
+        //Return user to "Classes" page
         ModelAndView mv = getClasses();
         mv.addObject("success", new SimpleMessageDto("Class added successfully!"));
 
@@ -71,6 +75,8 @@ public class ClassWebController {
         ModelAndView mv = getClasses();
         try {
             classService.deleteClass(Integer.parseInt(classID));
+
+            //Return user to "Classes" page
             mv = getClasses();
             mv.addObject("success", new SimpleMessageDto("Class deleted successfully!"));
         } catch (KronosException e) {

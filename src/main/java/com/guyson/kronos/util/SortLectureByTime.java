@@ -10,6 +10,7 @@ public class SortLectureByTime implements SortLectureStrategy {
     @Override
     public List<Lecture> sort(List<Lecture> lectures) {
 
+        // Compare lectures by start time and sort in ascending order
         lectures.sort(Comparator.comparing(Lecture::getStartTime));
 
         return lectures;

@@ -30,6 +30,7 @@ public class LectureWebController {
     private final DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault());
     private final DateTimeFormatter DATE_TIME_FORMATTER_HTML = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
 
+    // Reusable function to get lectures for current day as ModelAndView
     private ModelAndView getToday(ModelAndView _mv) {
 
         Instant today = Instant.now();
@@ -43,9 +44,9 @@ public class LectureWebController {
         mv.setViewName("lectures.jsp");
 
         try {
+            // Additional information to be displayed in page including present day's lectures
             mv.addObject("lectures", lectureService.getAllLecturesByDay(day, "time"));
             mv.addObject("day", DATE_TIME_FORMATTER_2.format(today));
-
             mv.addObject("inputDate", DATE_TIME_FORMATTER_HTML.format(today));
             mv = getDropdownInfo(mv);
         } catch (KronosException e) {
@@ -56,6 +57,7 @@ public class LectureWebController {
         return mv;
     }
 
+    // Reusable function to get "Rooms" and "Modules" for dropdowns in "Add Lecture" modal
     private ModelAndView getDropdownInfo(ModelAndView mv) {
         mv.addObject("rooms", roomService.getAllRooms());
         mv.addObject("modules", moduleService.getAllModules());
@@ -82,7 +84,9 @@ public class LectureWebController {
             LocalDate date = LocalDate.parse( dto.getDate() , DATE_TIME_FORMATTER_HTML );
             String day = DATE_TIME_FORMATTER.format(date);
 
+            // Sort lectures according to user given order
             mv.addObject("lectures", lectureService.getAllLecturesByDay(day, dto.getOrder()));
+
             mv.addObject("day", DATE_TIME_FORMATTER_2.format(date));
             mv.addObject("inputDate", dto.getDate());
             mv = getDropdownInfo(mv);
@@ -100,6 +104,8 @@ public class LectureWebController {
         ModelAndView mv = getToday(null);
 
         try {
+
+            //Create Lecture dto with user input
             LectureDto dto = new LectureDto();
             dto.setRoomID(Integer.parseInt(roomID));
             dto.setModuleID(Integer.parseInt(moduleID));
@@ -110,7 +116,7 @@ public class LectureWebController {
             dto.setDate(DATE_TIME_FORMATTER.format(localDate));
             dto.setStartTime(startTime);
 
-
+            //Return user to "Lectures" page
             lectureService.addLecture(dto, false);
             mv = getToday(null);
             mv.addObject("success", new SimpleMessageDto("Lecture added successfully!"));
@@ -128,6 +134,8 @@ public class LectureWebController {
         ModelAndView mv = getToday(null);
 
         try {
+
+            //Create Lecture dto with user input
             LectureDto dto = new LectureDto();
             dto.setRoomID(Integer.parseInt(roomID));
             dto.setModuleID(Integer.parseInt(moduleID));
@@ -139,7 +147,7 @@ public class LectureWebController {
             dto.setDate(DATE_TIME_FORMATTER.format(localDate));
             dto.setStartTime(startTime);
 
-
+            // Add lecture and return user to "Lectures" page
             lectureService.addLecture(dto, true);
             mv = getToday(null);
             mv.addObject("success", new SimpleMessageDto("Lecture updated successfully!"));
@@ -157,7 +165,7 @@ public class LectureWebController {
         ModelAndView mv = getToday(null);
 
         try {
-
+            // Delete lecture and return user to "Lectures" page
             lectureService.deleteLecture(lectureID);
             mv = getToday(null);
             mv.addObject("success", new SimpleMessageDto("Lecture deleted successfully!"));
