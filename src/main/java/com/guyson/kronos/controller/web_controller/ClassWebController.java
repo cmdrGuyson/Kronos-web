@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClassWebController {
 
-    private ClassService classService;
+    private final ClassService classService;
 
     @GetMapping("/classes")
     @PreAuthorize("hasRole('ADMIN')")

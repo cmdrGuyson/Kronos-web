@@ -35,7 +35,7 @@
                             <div class="form-row form-row-model-text">
                                 <div class="col">
                                     <label for="inputBody">Body</label>
-                                    <textarea class="form-control text-area-round" id="inputBody" name="body" maxlength="255" rows="4" required></textarea>
+                                    <textarea class="form-control text-area-round" id="inputBody" name="body" rows="4" required></textarea>
                                 </div>
                             </div>
                             <hr />

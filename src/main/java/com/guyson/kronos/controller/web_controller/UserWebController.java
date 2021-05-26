@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -128,10 +129,16 @@ public class UserWebController {
         System.out.println("posted");
 
         //Handle sending email using service
-        emailService.sendSimpleMessage(email, body);
+        try {
+            emailService.sendSimpleMessage(email, body);
+            // Set success message
+            mv.addObject("success", new SimpleMessageDto("Successfully sent email!"));
+        } catch (MessagingException e) {
+            // Set error message
+            mv.addObject("error", new APIException("Something went wrong!"));
+        }
 
-        // Set success message
-        mv.addObject("success", new SimpleMessageDto("Successfully sent email!"));
+
         return mv;
     }
 }

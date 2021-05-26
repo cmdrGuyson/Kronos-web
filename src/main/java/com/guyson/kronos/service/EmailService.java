@@ -1,5 +1,6 @@
 package com.guyson.kronos.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,12 +11,12 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Component
+@AllArgsConstructor
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
-    public void sendSimpleMessage(String email, String body) {
+    public void sendSimpleMessage(String email, String body) throws MessagingException {
 
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -77,6 +78,7 @@ public class EmailService {
             helper.setFrom("noreply@kronos.com");
         } catch (MessagingException e) {
             e.printStackTrace();
+            throw e;
         }
 
         // Send email
