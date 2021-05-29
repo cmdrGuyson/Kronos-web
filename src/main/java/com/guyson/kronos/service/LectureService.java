@@ -41,8 +41,9 @@ public class LectureService {
         Room room = roomRepository.findById(dto.getRoomID()).orElseThrow(() -> new KronosException("Room not found"));
         Module module = moduleRepository.findById(dto.getModuleID()).orElseThrow(() -> new KronosException("Module not found"));
 
-        //Longer duration
+        //Validate duration
         if (dto.getDuration() > 10) throw new KronosException("Duration is too long");
+        if (dto.getDuration() < 1) throw new KronosException("Duration is too short");
 
         Lecture lecture = map(dto, module, room);
 
