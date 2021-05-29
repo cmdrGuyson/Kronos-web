@@ -47,6 +47,10 @@ public class LectureService {
 
         Lecture lecture = map(dto, module, room);
 
+        //Prevent adding lecture for old date
+        LocalDate today = LocalDate.now();
+        if (lecture.getDate().isBefore(today)) throw new KronosException("Can't set lecture in the past");
+
         //Find any overlaps with existing lectures from the same module
         List<Lecture> list_byModule = lectureRepository.findAllByModuleAndDate(lecture.getModule(), lecture.getDate());
         List<Lecture> list_byRoom = lectureRepository.findAllByRoomAndDate(lecture.getRoom(), lecture.getDate());
