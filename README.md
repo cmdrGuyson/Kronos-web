@@ -12,7 +12,6 @@ Solution comprises of many J2EE and SE features including but not limited to,
 - Java transactions API
 - Java Mail
 
-![alt text](1.jpg)
 <img src="1.jpg">
 <img src="2.jpg">
 <img src="3.jpg">
