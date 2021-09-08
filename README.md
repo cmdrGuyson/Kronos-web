@@ -1,3 +1,5 @@
+`All rights for the source code and other related material are reserved`
+
 # Kronos
 Kronos is an attractive, powerful and scalable system to manage lectures and related activities in a university environment.
 
